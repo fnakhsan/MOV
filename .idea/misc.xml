@@ -4,7 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Dev/MOV/app/src/main/res/drawable-v24/shape_rect_gray_blue.xml" value="0.1505" />
+        <entry key="..\:/Dev/MOV/app/src/main/res/drawable/ic_mov.xml" value="0.1505" />
         <entry key="..\:/Dev/MOV/app/src/main/res/drawable/shape_rect_red_pink.xml" value="0.1505" />
+        <entry key="..\:/Dev/MOV/app/src/main/res/drawable/splash_background.xml" value="0.1505" />
         <entry key="..\:/Dev/MOV/app/src/main/res/layout/activity_main.xml" value="0.21784420289855072" />
         <entry key="..\:/Dev/MOV/app/src/main/res/layout/activity_onboard_one.xml" value="0.21784420289855072" />
       </map>
