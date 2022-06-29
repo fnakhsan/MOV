@@ -14,7 +14,13 @@
         android:theme="@style/NoActionBar"
         tools:targetApi="31">
         <activity
-            android:name=".onboard.OnboardOneActivity"
+            android:name=".onboard.OnBoardThreeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".onboard.OnBoardTwoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".onboard.OnBoardOneActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

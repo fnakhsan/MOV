@@ -2,4 +2,11 @@
     <string name="app_name">MOV</string>
     <string name="lewati_perkenalan">lewati perkenalan</string>
     <string name="lanjutkan">lanjutkan</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="now_playing_detail">Lebih mudah untuk mengetahui\nfilm yang sedang tampil</string>
+    <string name="pre_sale">Pre Sale</string>
+    <string name="pre_sale_detail">Tidak khawatir ketinggalan\nupdate film terbaru</string>
+    <string name="memulai">memulai</string>
+    <string name="cashless">Cashless</string>
+    <string name="cashless_detail">Gunakan e-wallet untuk\ntransaksi tiket nonton</string>
 </resources>
