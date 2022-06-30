@@ -4,11 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Dev/MOV/app/src/main/res/drawable-v24/shape_rect_gray_blue.xml" value="0.1505" />
+        <entry key="..\:/Dev/MOV/app/src/main/res/drawable/ic_baseline_account_balance_wallet_24.xml" value="0.2385" />
         <entry key="..\:/Dev/MOV/app/src/main/res/drawable/ic_baseline_keyboard_backspace_24.xml" value="0.2535" />
         <entry key="..\:/Dev/MOV/app/src/main/res/drawable/ic_mov.xml" value="0.1505" />
         <entry key="..\:/Dev/MOV/app/src/main/res/drawable/shape_rect_red_pink.xml" value="0.1505" />
         <entry key="..\:/Dev/MOV/app/src/main/res/drawable/splash_background.xml" value="0.1505" />
         <entry key="..\:/Dev/MOV/app/src/main/res/font/montserrat.xml" value="0.2564814814814815" />
+        <entry key="..\:/Dev/MOV/app/src/main/res/layout/activity_home.xml" value="0.2" />
         <entry key="..\:/Dev/MOV/app/src/main/res/layout/activity_main.xml" value="0.21784420289855072" />
         <entry key="..\:/Dev/MOV/app/src/main/res/layout/activity_on_board_one.xml" value="0.1" />
         <entry key="..\:/Dev/MOV/app/src/main/res/layout/activity_on_board_three.xml" value="0.21784420289855072" />
