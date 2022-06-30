@@ -20,4 +20,8 @@
     <string name="nama_lengkap">Nama Lengkap</string>
     <string name="alamat_email">Alamat Email</string>
     <string name="back">back</string>
+    <string name="photo">Photo</string>
+    <string name="welcome">Selamat Datang,\nFatkhi Nur Akhsan</string>
+    <string name="upload_nanti">upload nanti</string>
+    <string name="simpan_lanjutkan">simpan dan lanjutkan</string>
 </resources>
