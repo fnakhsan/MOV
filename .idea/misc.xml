@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Dev/MOV/app/src/main/res/drawable-v24/shape_rect_gray_blue.xml" value="0.1505" />
+        <entry key="..\:/Dev/MOV/app/src/main/res/drawable/ic_baseline_keyboard_backspace_24.xml" value="0.2535" />
         <entry key="..\:/Dev/MOV/app/src/main/res/drawable/ic_mov.xml" value="0.1505" />
         <entry key="..\:/Dev/MOV/app/src/main/res/drawable/shape_rect_red_pink.xml" value="0.1505" />
         <entry key="..\:/Dev/MOV/app/src/main/res/drawable/splash_background.xml" value="0.1505" />
@@ -13,6 +14,8 @@
         <entry key="..\:/Dev/MOV/app/src/main/res/layout/activity_on_board_three.xml" value="0.21784420289855072" />
         <entry key="..\:/Dev/MOV/app/src/main/res/layout/activity_on_board_two.xml" value="0.21784420289855072" />
         <entry key="..\:/Dev/MOV/app/src/main/res/layout/activity_onboard_one.xml" value="0.264" />
+        <entry key="..\:/Dev/MOV/app/src/main/res/layout/activity_sign_in.xml" value="0.20897552130553038" />
+        <entry key="..\:/Dev/MOV/app/src/main/res/layout/activity_sign_up.xml" value="0.176" />
       </map>
     </option>
   </component>
