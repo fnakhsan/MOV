@@ -33,6 +33,8 @@
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
     <string name="see_all">see all</string>
     <string name="whos_played">Who\'s Played</string>
-    <string name="pilih_bangku">pilih bangku</string>
+    <string name="pilih_bangku">Pilih Bangku</string>
     <string name="movie_cover">movie cover</string>
+    <string name="buy_ticket">beli tiket (2)</string>
+    <string name="layar_bioskop">Layar Bioskop</string>
 </resources>
