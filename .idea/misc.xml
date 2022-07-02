@@ -8,10 +8,14 @@
         <entry key="..\:/Dev/MOV/app/src/main/res/drawable/ic_baseline_keyboard_backspace_24.xml" value="0.2535" />
         <entry key="..\:/Dev/MOV/app/src/main/res/drawable/ic_mov.xml" value="0.1505" />
         <entry key="..\:/Dev/MOV/app/src/main/res/drawable/ic_screen.xml" value="0.1355" />
+        <entry key="..\:/Dev/MOV/app/src/main/res/drawable/shape_rect_booked.xml" value="0.2575" />
+        <entry key="..\:/Dev/MOV/app/src/main/res/drawable/shape_rect_empty.xml" value="0.2555" />
+        <entry key="..\:/Dev/MOV/app/src/main/res/drawable/shape_rect_gray_blue.xml" value="0.2555" />
         <entry key="..\:/Dev/MOV/app/src/main/res/drawable/shape_rect_red_pink.xml" value="0.1505" />
+        <entry key="..\:/Dev/MOV/app/src/main/res/drawable/shape_rect_selected.xml" value="0.227" />
         <entry key="..\:/Dev/MOV/app/src/main/res/drawable/splash_background.xml" value="0.1505" />
         <entry key="..\:/Dev/MOV/app/src/main/res/font/montserrat.xml" value="0.2564814814814815" />
-        <entry key="..\:/Dev/MOV/app/src/main/res/layout/activity_choose_seat.xml" value="0.4" />
+        <entry key="..\:/Dev/MOV/app/src/main/res/layout/activity_choose_seat.xml" value="0.536" />
         <entry key="..\:/Dev/MOV/app/src/main/res/layout/activity_home.xml" value="0.2" />
         <entry key="..\:/Dev/MOV/app/src/main/res/layout/activity_main.xml" value="0.21784420289855072" />
         <entry key="..\:/Dev/MOV/app/src/main/res/layout/activity_movie_detail.xml" value="0.176" />
