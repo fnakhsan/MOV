@@ -41,4 +41,11 @@
     <string name="booked">Booked</string>
     <string name="empty">Empty</string>
     <string name="selected">Selected</string>
+    <string name="checkout">Checkout</string>
+    <string name="when">When</string>
+    <string name="date_amp_time"><![CDATA[Date & Time]]></string>
+    <string name="dat">date, time</string>
+    <string name="bayar_sekarang">bayar sekarang</string>
+    <string name="batalkan">batalkan</string>
+
 </resources>
