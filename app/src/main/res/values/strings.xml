@@ -57,5 +57,7 @@
     <string name="ewallet">E-Wallet</string>
     <string name="total_balance">Total Balance</string>
     <string name="total_balance_alert">Saldo pada E-Wallet kamu tidak mencukupi untuk melakukan transaksi</string>
+    <string name="simpan_perubahan">simpan perubahan</string>
+    <string name="edit_profile">Edit Profile</string>
 
 </resources>
