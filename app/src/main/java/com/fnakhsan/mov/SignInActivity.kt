@@ -9,7 +9,8 @@ import com.fnakhsan.mov.data.User
 import com.fnakhsan.mov.databinding.ActivitySignInBinding
 import com.fnakhsan.mov.signup.SignUpActivity
 import com.google.firebase.database.*
-import kotlin.math.log
+//import com.google.firebase.database.ktx.database
+//import com.google.firebase.ktx.Firebase
 
 class SignInActivity : AppCompatActivity() {
     private lateinit var signInBinding: ActivitySignInBinding
@@ -17,6 +18,8 @@ class SignInActivity : AppCompatActivity() {
     lateinit var iUsername: String
     lateinit var iPassword: String
 
+//    private lateinit var db: FirebaseDatabase
+//    lateinit var myRef: DatabaseReference
     lateinit var mDatabase: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +27,11 @@ class SignInActivity : AppCompatActivity() {
         signInBinding = ActivitySignInBinding.inflate(layoutInflater)
         setContentView(signInBinding.root)
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("User")
+//        db = Firebase.database("https://bwa-mov-fbe4b-default-rtdb.asia-southeast1.firebasedatabase.app/")
+//        myRef = db.getReference("User")
+        mDatabase =
+            FirebaseDatabase.getInstance("https://bwa-mov-fbe4b-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                .getReference("User")
 
         signInBinding.btnSignIn.setOnClickListener {
             iUsername = signInBinding.edtUsername.text.toString()
@@ -45,23 +52,14 @@ class SignInActivity : AppCompatActivity() {
             val intent = Intent(this@SignInActivity, SignUpActivity::class.java)
             startActivity(intent)
         }
-
-//        val database = Firebase.database
-//        val myRef = database.getReference("message")
-//
-//        myRef.setValue("Hello, World!")
-
     }
 
     private fun pushLogin(iUsername: String, iPassword: String) {
-        Log.d(TAG, "$iUsername, $iPassword")
         mDatabase.child(iUsername).addValueEventListener(object : ValueEventListener {
-
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                var user = dataSnapshot.getValue(User::class.java)
-                Log.d(TAG, "$user")
+                val user = dataSnapshot.getValue(User::class.java)
                 if (user == null) {
                     Toast.makeText(this@SignInActivity, "User tidak ditemukan", Toast.LENGTH_LONG)
                         .show()
