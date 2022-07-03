@@ -8,6 +8,7 @@ import android.widget.Toast
 import com.fnakhsan.mov.data.User
 import com.fnakhsan.mov.databinding.ActivitySignInBinding
 import com.fnakhsan.mov.signup.SignUpActivity
+import com.fnakhsan.mov.utils.Preferences
 import com.google.firebase.database.*
 //import com.google.firebase.database.ktx.database
 //import com.google.firebase.ktx.Firebase
@@ -21,6 +22,7 @@ class SignInActivity : AppCompatActivity() {
 //    private lateinit var db: FirebaseDatabase
 //    lateinit var myRef: DatabaseReference
     lateinit var mDatabase: DatabaseReference
+    lateinit var preferences: Preferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +34,14 @@ class SignInActivity : AppCompatActivity() {
         mDatabase =
             FirebaseDatabase.getInstance("https://bwa-mov-fbe4b-default-rtdb.asia-southeast1.firebasedatabase.app/")
                 .getReference("User")
+        preferences = Preferences(this)
 
+        preferences.setValues("onBoarding", "1")
+        if (preferences.getValues("status") == "1"){
+            finishAffinity()
+            val intent = Intent(this@SignInActivity, HomeActivity::class.java)
+            startActivity(intent)
+        }
         signInBinding.btnSignIn.setOnClickListener {
             iUsername = signInBinding.edtUsername.text.toString()
             iPassword = signInBinding.edtPassword.text.toString()
@@ -65,6 +74,13 @@ class SignInActivity : AppCompatActivity() {
                         .show()
                 } else {
                     if (user.password == iPassword) {
+                        preferences.setValues("nama", user.nama.toString())
+                        preferences.setValues("user", user.username.toString())
+                        preferences.setValues("url", user.url.toString())
+                        preferences.setValues("email", user.email.toString())
+                        preferences.setValues("saldo", user.saldo.toString())
+                        preferences.setValues("status", "1")
+
                         val intent = Intent(this@SignInActivity, HomeActivity::class.java)
                         startActivity(intent)
                         finish()
