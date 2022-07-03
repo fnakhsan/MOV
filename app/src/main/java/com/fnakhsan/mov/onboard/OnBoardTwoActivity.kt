@@ -12,10 +12,9 @@ class OnBoardTwoActivity : AppCompatActivity() {
         onBoardTwoBinding = ActivityOnBoardTwoBinding.inflate(layoutInflater)
         setContentView(onBoardTwoBinding.root)
 
-        onBoardTwoBinding.button2.setOnClickListener {
+        onBoardTwoBinding.btnResume.setOnClickListener {
             val intent = Intent(this@OnBoardTwoActivity, OnBoardThreeActivity::class.java)
             startActivity(intent)
-            finish()
         }
     }
 }

@@ -3,6 +3,7 @@ package com.fnakhsan.mov.onboard
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.fnakhsan.mov.SignInActivity
 import com.fnakhsan.mov.databinding.ActivityOnBoardOneBinding
 
 class OnBoardOneActivity : AppCompatActivity() {
@@ -12,10 +13,15 @@ class OnBoardOneActivity : AppCompatActivity() {
         onBoardOneBinding = ActivityOnBoardOneBinding.inflate(layoutInflater)
         setContentView(onBoardOneBinding.root)
 
-        onBoardOneBinding.button2.setOnClickListener {
+        onBoardOneBinding.btnResume.setOnClickListener {
             val intent = Intent(this@OnBoardOneActivity, OnBoardTwoActivity::class.java)
             startActivity(intent)
-            finish()
+        }
+
+        onBoardOneBinding.btnSkipIntro.setOnClickListener {
+            finishAffinity()
+            val intent = Intent(this@OnBoardOneActivity, SignInActivity::class.java)
+            startActivity(intent)
         }
     }
 }

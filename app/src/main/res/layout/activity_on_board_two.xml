@@ -8,34 +8,18 @@
     tools:context=".onboard.OnBoardTwoActivity">
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/btn_resume"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="56dp"
-        android:background="@drawable/shape_rect_gray_blue"
-        android:fontFamily="@font/montserrat_semi_bold"
-        android:text="@string/lewati_perkenalan"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="16dp"
         android:background="@drawable/shape_rect_red_pink"
         android:fontFamily="@font/montserrat_semi_bold"
         android:text="@string/lanjutkan"
         android:textColor="@color/white"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@id/button1"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
