@@ -62,5 +62,7 @@
     <string name="my_wallet">My Wallet</string>
     <string name="saldo_tersedia">Saldo Tersedia</string>
     <string name="daftar_transaksi">Daftar Transaksi</string>
+    <string name="n_movies">n Movies</string>
+    <string name="history">History</string>
 
 </resources>
