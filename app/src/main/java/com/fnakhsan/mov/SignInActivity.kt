@@ -65,7 +65,7 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun pushSignIn(iUsername: String, iPassword: String) {
-        mDatabaseRef.child(iUsername).addValueEventListener(object : ValueEventListener {
+        mDatabaseRef.child(iUsername).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
