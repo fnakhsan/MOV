@@ -16,13 +16,13 @@ import com.google.firebase.database.*
 class SignInActivity : AppCompatActivity() {
     private lateinit var signInBinding: ActivitySignInBinding
 
-    lateinit var iUsername: String
-    lateinit var iPassword: String
+    private lateinit var iUsername: String
+    private lateinit var iPassword: String
 
 //    private lateinit var db: FirebaseDatabase
 //    lateinit var myRef: DatabaseReference
-    lateinit var mDatabaseRef: DatabaseReference
-    lateinit var preferences: Preferences
+    private lateinit var mDatabaseRef: DatabaseReference
+    private lateinit var preferences: Preferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,7 +71,7 @@ class SignInActivity : AppCompatActivity() {
                 // whenever data at this location is updated.
                 val user = dataSnapshot.getValue(User::class.java)
                 if (user == null) {
-                    Toast.makeText(this@SignInActivity, "User tidak ditemukan", Toast.LENGTH_LONG)
+                    Toast.makeText(this@SignInActivity, "User tidak ditemukan", Toast.LENGTH_SHORT)
                         .show()
                 } else {
                     if (user.password == iPassword) {
@@ -89,7 +89,7 @@ class SignInActivity : AppCompatActivity() {
                         Toast.makeText(
                             this@SignInActivity,
                             "Password anda salah",
-                            Toast.LENGTH_LONG
+                            Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
@@ -97,7 +97,7 @@ class SignInActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@SignInActivity, error.message, Toast.LENGTH_LONG).show()
+                Toast.makeText(this@SignInActivity, error.message, Toast.LENGTH_SHORT).show()
                 Log.w(TAG, "Failed to read value.", error.toException())
             }
         })

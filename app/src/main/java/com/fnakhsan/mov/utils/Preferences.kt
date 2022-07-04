@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 
 class Preferences(val context: Context) {
-    var sharedPreferences = context.getSharedPreferences(USER_PREFF, 0)
+    private var sharedPreferences = context.getSharedPreferences(USER_PREF, 0)
 
     fun setValues(key: String, value: String) {
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
@@ -17,6 +17,6 @@ class Preferences(val context: Context) {
     }
 
     companion object {
-        const val USER_PREFF = "USER_PREFF"
+        const val USER_PREF = "USER_PREF"
     }
 }

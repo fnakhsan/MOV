@@ -9,7 +9,7 @@ import com.fnakhsan.mov.utils.Preferences
 
 class OnBoardOneActivity : AppCompatActivity() {
     private lateinit var onBoardOneBinding: ActivityOnBoardOneBinding
-    lateinit var preferences: Preferences
+    private lateinit var preferences: Preferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         onBoardOneBinding = ActivityOnBoardOneBinding.inflate(layoutInflater)

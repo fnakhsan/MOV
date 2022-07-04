@@ -13,17 +13,20 @@ import com.google.firebase.database.*
 class SignUpActivity : AppCompatActivity() {
     private lateinit var signUpBinding: ActivitySignUpBinding
 
-    lateinit var iUsername: String
-    lateinit var iPassword: String
-    lateinit var iFullname: String
-    lateinit var iEmail: String
+    private lateinit var iUsername: String
+    private lateinit var iPassword: String
+    private lateinit var iFullname: String
+    private lateinit var iEmail: String
 
-    lateinit var mDatabaseUserRef: DatabaseReference
+    private lateinit var mDatabaseUserRef: DatabaseReference
+    private lateinit var isIntent: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         signUpBinding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(signUpBinding.root)
+
+        isIntent = "no"
 
         mDatabaseUserRef =
             FirebaseDatabase
@@ -80,7 +83,7 @@ class SignUpActivity : AppCompatActivity() {
         dataUser: User,
         listUser: ArrayList<User>
     ) {
-        mDatabaseUserRef.addValueEventListener(object : ValueEventListener {
+        mDatabaseUserRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val userDB = snapshot.child(iUsername).getValue(User::class.java)
                 var index = 0
@@ -106,23 +109,22 @@ class SignUpActivity : AppCompatActivity() {
                         Toast.makeText(
                             this@SignUpActivity,
                             "Email sudah digunakan",
-                            Toast.LENGTH_LONG
+                            Toast.LENGTH_SHORT
                         ).show()
                     }
                 } else {
                     Toast.makeText(
                         this@SignUpActivity,
                         "User sudah digunakan",
-                        Toast.LENGTH_LONG
+                        Toast.LENGTH_SHORT
                     ).show()
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@SignUpActivity, error.message, Toast.LENGTH_LONG).show()
+                Toast.makeText(this@SignUpActivity, error.message, Toast.LENGTH_SHORT).show()
                 Log.w(TAG, "Failed to read value.", error.toException())
             }
-
         })
     }
 
