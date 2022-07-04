@@ -84,7 +84,6 @@ class SignUpActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val userDB = snapshot.child(iUsername).getValue(User::class.java)
                 var index = 0
-//                var dataEmail = ""
                 var isEmptyEmail = false
                 if (userDB == null) {
                     for (userSnapshot in snapshot.children) {
