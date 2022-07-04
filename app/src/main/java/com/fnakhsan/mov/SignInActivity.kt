@@ -21,7 +21,7 @@ class SignInActivity : AppCompatActivity() {
 
 //    private lateinit var db: FirebaseDatabase
 //    lateinit var myRef: DatabaseReference
-    lateinit var mDatabase: DatabaseReference
+    lateinit var mDatabaseRef: DatabaseReference
     lateinit var preferences: Preferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,8 +31,9 @@ class SignInActivity : AppCompatActivity() {
 
 //        db = Firebase.database("https://bwa-mov-fbe4b-default-rtdb.asia-southeast1.firebasedatabase.app/")
 //        myRef = db.getReference("User")
-        mDatabase =
-            FirebaseDatabase.getInstance("https://bwa-mov-fbe4b-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        mDatabaseRef =
+            FirebaseDatabase
+                .getInstance("https://bwa-mov-fbe4b-default-rtdb.asia-southeast1.firebasedatabase.app/")
                 .getReference("User")
         preferences = Preferences(this)
 
@@ -53,7 +54,7 @@ class SignInActivity : AppCompatActivity() {
                 signInBinding.edtPassword.error = "Silahkan tulis password anda"
                 signInBinding.edtPassword.requestFocus()
             } else {
-                pushLogin(iUsername, iPassword)
+                pushSignIn(iUsername, iPassword)
             }
         }
 
@@ -63,8 +64,8 @@ class SignInActivity : AppCompatActivity() {
         }
     }
 
-    private fun pushLogin(iUsername: String, iPassword: String) {
-        mDatabase.child(iUsername).addValueEventListener(object : ValueEventListener {
+    private fun pushSignIn(iUsername: String, iPassword: String) {
+        mDatabaseRef.child(iUsername).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
