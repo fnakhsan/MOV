@@ -18,7 +18,6 @@ class SignUpActivity : AppCompatActivity() {
     lateinit var iFullname: String
     lateinit var iEmail: String
 
-    //    lateinit var mDatabaseRef: DatabaseReference
     lateinit var mDatabaseUserRef: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,42 +65,51 @@ class SignUpActivity : AppCompatActivity() {
         iEmail: String
     ) {
         val user = User()
+        val listUser = arrayListOf<User>()
         user.username = iUsername
         user.password = iPassword
         user.nama = iFullname
         user.email = iEmail
 
-        checkingUsername(iUsername, user)
+        checkingUsername(iUsername, iEmail, user, listUser)
     }
 
     private fun checkingUsername(
         iUsername: String,
-//        iEmail: String,
+        iEmail: String,
         dataUser: User,
+        listUser: ArrayList<User>
     ) {
-        mDatabaseUserRef.child(iUsername).addValueEventListener(object : ValueEventListener {
+        mDatabaseUserRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val userDB = snapshot.getValue(User::class.java)
-//                if (userDB?.username == iUsername) {
-//                    Toast.makeText(
-//                        this@SignUpActivity,
-//                        "Username sudah digunakan",
-//                        Toast.LENGTH_LONG
-//                    ).show()
-//                } else if (userDB?.email == iEmail) {
-//                    Toast.makeText(
-//                        this@SignUpActivity,
-//                        "Email sudah digunakan",
-//                        Toast.LENGTH_LONG
-//                    ).show()
-//                }
+                val userDB = snapshot.child(iUsername).getValue(User::class.java)
+                var index = 0
+//                var dataEmail = ""
+                var isEmptyEmail = false
                 if (userDB == null) {
-                    mDatabaseUserRef.child(iUsername).setValue(dataUser)
-                    val intent = Intent(
-                        this@SignUpActivity,
-                        SignUpPhotoActivity::class.java
-                    ).putExtra("username", dataUser.username)
-                    startActivity(intent)
+                    for (userSnapshot in snapshot.children) {
+                        val listUserDB = userSnapshot.getValue(User::class.java)
+                        listUser.add(listUserDB!!)
+                        listUser[index].email
+                        if (listUser[index].email == iEmail) {
+                            isEmptyEmail = true
+                        }
+                        index += 1
+                    }
+                    if (!isEmptyEmail) {
+                        mDatabaseUserRef.child(iUsername).setValue(dataUser)
+                        val intent = Intent(
+                            this@SignUpActivity,
+                            SignUpPhotoActivity::class.java
+                        ).putExtra("username", dataUser.username)
+                        startActivity(intent)
+                    } else {
+                        Toast.makeText(
+                            this@SignUpActivity,
+                            "Email sudah digunakan",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
                 } else {
                     Toast.makeText(
                         this@SignUpActivity,
