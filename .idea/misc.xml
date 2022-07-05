@@ -10,6 +10,7 @@
         <entry key="..\:/Dev/MOV/app/src/main/res/drawable/ic_baseline_event_seat_24.xml" value="0.2775" />
         <entry key="..\:/Dev/MOV/app/src/main/res/drawable/ic_baseline_keyboard_backspace_24.xml" value="0.2535" />
         <entry key="..\:/Dev/MOV/app/src/main/res/drawable/ic_baseline_theaters_24.xml" value="0.2775" />
+        <entry key="..\:/Dev/MOV/app/src/main/res/drawable/ic_btn_delete.xml" value="0.2775" />
         <entry key="..\:/Dev/MOV/app/src/main/res/drawable/ic_btn_upload.xml" value="0.2765" />
         <entry key="..\:/Dev/MOV/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2765" />
         <entry key="..\:/Dev/MOV/app/src/main/res/drawable/ic_mov.xml" value="0.1505" />
@@ -35,7 +36,7 @@
         <entry key="..\:/Dev/MOV/app/src/main/res/layout/activity_onboard_one.xml" value="0.264" />
         <entry key="..\:/Dev/MOV/app/src/main/res/layout/activity_sign_in.xml" value="0.20897552130553038" />
         <entry key="..\:/Dev/MOV/app/src/main/res/layout/activity_sign_up.xml" value="0.2" />
-        <entry key="..\:/Dev/MOV/app/src/main/res/layout/activity_sign_up_photo.xml" value="0.152" />
+        <entry key="..\:/Dev/MOV/app/src/main/res/layout/activity_sign_up_photo.xml" value="0.264" />
       </map>
     </option>
   </component>
