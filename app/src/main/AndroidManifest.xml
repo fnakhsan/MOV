@@ -58,13 +58,13 @@
             android:name=".MovieDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".signup.SignUpPhotoActivity"
+            android:name=".sign.up.SignUpPhotoActivity"
             android:exported="false" />
         <activity
-            android:name=".signup.SignUpActivity"
+            android:name=".sign.up.SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".SignInActivity"
+            android:name=".sign.in.SignInActivity"
             android:exported="false" />
         <activity
             android:name=".onboard.OnBoardThreeActivity"

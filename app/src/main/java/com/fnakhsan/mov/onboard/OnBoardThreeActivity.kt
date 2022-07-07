@@ -3,7 +3,7 @@ package com.fnakhsan.mov.onboard
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.fnakhsan.mov.SignInActivity
+import com.fnakhsan.mov.sign.`in`.SignInActivity
 import com.fnakhsan.mov.databinding.ActivityOnBoardThreeBinding
 
 class OnBoardThreeActivity : AppCompatActivity() {

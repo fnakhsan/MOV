@@ -1,4 +1,4 @@
-package com.fnakhsan.mov.signup
+package com.fnakhsan.mov.sign.up
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +8,7 @@ import android.util.Patterns.EMAIL_ADDRESS
 import android.widget.Toast
 import com.fnakhsan.mov.data.User
 import com.fnakhsan.mov.databinding.ActivitySignUpBinding
+import com.fnakhsan.mov.utils.Preferences
 import com.google.firebase.database.*
 
 class SignUpActivity : AppCompatActivity() {
@@ -18,6 +19,7 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var iFullname: String
     private lateinit var iEmail: String
 
+    private lateinit var preferences: Preferences
     private lateinit var mDatabaseUserRef: DatabaseReference
     private lateinit var isIntent: String
 
@@ -100,6 +102,14 @@ class SignUpActivity : AppCompatActivity() {
                     }
                     if (!isEmptyEmail) {
                         mDatabaseUserRef.child(iUsername).setValue(dataUser)
+                        with(preferences){
+                            setValues("nama", dataUser.nama.toString())
+                            setValues("user", dataUser.username.toString())
+                            setValues("url", dataUser.url.toString())
+                            setValues("email", dataUser.email.toString())
+                            setValues("saldo", dataUser.saldo.toString())
+                            setValues("status", "1")
+                        }
                         val intent = Intent(
                             this@SignUpActivity,
                             SignUpPhotoActivity::class.java

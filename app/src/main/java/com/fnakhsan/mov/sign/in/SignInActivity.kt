@@ -1,4 +1,4 @@
-package com.fnakhsan.mov
+package com.fnakhsan.mov.sign.`in`
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,7 +8,7 @@ import android.widget.Toast
 import com.fnakhsan.mov.dashboard.DashboardActivity
 import com.fnakhsan.mov.data.User
 import com.fnakhsan.mov.databinding.ActivitySignInBinding
-import com.fnakhsan.mov.signup.SignUpActivity
+import com.fnakhsan.mov.sign.up.SignUpActivity
 import com.fnakhsan.mov.utils.Preferences
 import com.google.firebase.database.*
 //import com.google.firebase.database.ktx.database
@@ -76,12 +76,14 @@ class SignInActivity : AppCompatActivity() {
                         .show()
                 } else {
                     if (user.password == iPassword) {
-                        preferences.setValues("nama", user.nama.toString())
-                        preferences.setValues("user", user.username.toString())
-                        preferences.setValues("url", user.url.toString())
-                        preferences.setValues("email", user.email.toString())
-                        preferences.setValues("saldo", user.saldo.toString())
-                        preferences.setValues("status", "1")
+                        with(preferences){
+                            setValues("nama", user.nama.toString())
+                            setValues("user", user.username.toString())
+                            setValues("url", user.url.toString())
+                            setValues("email", user.email.toString())
+                            setValues("saldo", user.saldo.toString())
+                            setValues("status", "1")
+                        }
 
                         val intent = Intent(this@SignInActivity, DashboardActivity::class.java)
                         startActivity(intent)

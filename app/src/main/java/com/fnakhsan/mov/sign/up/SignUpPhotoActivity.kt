@@ -1,4 +1,4 @@
-package com.fnakhsan.mov.signup
+package com.fnakhsan.mov.sign.up
 
 import android.Manifest
 import android.content.Intent
