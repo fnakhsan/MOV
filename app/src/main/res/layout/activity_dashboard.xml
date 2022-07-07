@@ -45,11 +45,11 @@
             android:src="@drawable/ic_tiket" />
 
         <ImageView
-            android:id="@+id/nav_profile"
+            android:id="@+id/nav_setting"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:contentDescription="@string/profile"
+            android:contentDescription="@string/setting"
             android:src="@drawable/ic_profile" />
     </LinearLayout>
 
