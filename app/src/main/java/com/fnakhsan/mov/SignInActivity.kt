@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.fnakhsan.mov.dashboard.DashboardActivity
 import com.fnakhsan.mov.data.User
 import com.fnakhsan.mov.databinding.ActivitySignInBinding
 import com.fnakhsan.mov.signup.SignUpActivity
@@ -40,7 +41,7 @@ class SignInActivity : AppCompatActivity() {
         preferences.setValues("onBoarding", "1")
         if (preferences.getValues("status") == "1"){
             finishAffinity()
-            val intent = Intent(this@SignInActivity, HomeActivity::class.java)
+            val intent = Intent(this@SignInActivity, DashboardActivity::class.java)
             startActivity(intent)
         }
         signInBinding.btnSignIn.setOnClickListener {
@@ -82,7 +83,7 @@ class SignInActivity : AppCompatActivity() {
                         preferences.setValues("saldo", user.saldo.toString())
                         preferences.setValues("status", "1")
 
-                        val intent = Intent(this@SignInActivity, HomeActivity::class.java)
+                        val intent = Intent(this@SignInActivity, DashboardActivity::class.java)
                         startActivity(intent)
                         finish()
                     } else {
