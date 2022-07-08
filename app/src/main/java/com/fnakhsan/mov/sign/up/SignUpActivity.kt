@@ -19,7 +19,6 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var iFullname: String
     private lateinit var iEmail: String
 
-    private lateinit var preferences: Preferences
     private lateinit var mDatabaseUserRef: DatabaseReference
     private lateinit var isIntent: String
 
