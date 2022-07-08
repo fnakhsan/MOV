@@ -102,14 +102,6 @@ class SignUpActivity : AppCompatActivity() {
                     }
                     if (!isEmptyEmail) {
                         mDatabaseUserRef.child(iUsername).setValue(dataUser)
-                        with(preferences){
-                            setValues("nama", dataUser.nama.toString())
-                            setValues("user", dataUser.username.toString())
-                            setValues("url", dataUser.url.toString())
-                            setValues("email", dataUser.email.toString())
-                            setValues("saldo", dataUser.saldo.toString())
-                            setValues("status", "1")
-                        }
                         val intent = Intent(
                             this@SignUpActivity,
                             SignUpPhotoActivity::class.java
