@@ -71,6 +71,11 @@ class HomeFragment : Fragment() {
                     val film = getSnapshot.getValue(Film::class.java)
                     filmList.add(film!!)
                 }
+
+                with(homeBinding){
+                    rvNp.adapter = NowPlayingAdapter(filmList)
+//                    rvCs.adapter = ComingSoonAdapter(filmList)
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
