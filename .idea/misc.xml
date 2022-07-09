@@ -41,7 +41,8 @@
         <entry key="..\:/Dev/MOV/app/src/main/res/layout/activity_sign_up_photo.xml" value="0.264" />
         <entry key="..\:/Dev/MOV/app/src/main/res/layout/fragment_home.xml" value="0.2536231884057971" />
         <entry key="..\:/Dev/MOV/app/src/main/res/layout/fragment_setting.xml" value="0.125" />
-        <entry key="..\:/Dev/MOV/app/src/main/res/layout/item_row_now_playing.xml" value="0.176" />
+        <entry key="..\:/Dev/MOV/app/src/main/res/layout/item_row_coming_soon.xml" value="0.4" />
+        <entry key="..\:/Dev/MOV/app/src/main/res/layout/item_row_now_playing.xml" value="0.8" />
       </map>
     </option>
   </component>

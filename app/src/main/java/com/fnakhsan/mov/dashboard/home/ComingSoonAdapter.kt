@@ -7,13 +7,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.fnakhsan.mov.R
 import com.fnakhsan.mov.data.Film
 
-class NowPlayingAdapter(private val filmList: ArrayList<Film>) :
-    RecyclerView.Adapter<NowPlayingAdapter.ViewHolder>() {
+class ComingSoonAdapter(private val filmList: ArrayList<Film>) :
+    RecyclerView.Adapter<ComingSoonAdapter.ViewHolder>() {
 
     private lateinit var onItemClickCallback: OnItemClickCallback
 
@@ -25,13 +24,8 @@ class NowPlayingAdapter(private val filmList: ArrayList<Film>) :
         this.onItemClickCallback = onItemClickCallback
     }
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ) = ViewHolder(
-        LayoutInflater
-            .from(parent.context)
-            .inflate(R.layout.item_row_now_playing, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
+        LayoutInflater.from(parent.context).inflate(R.layout.item_row_coming_soon, parent, false)
     )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -39,7 +33,7 @@ class NowPlayingAdapter(private val filmList: ArrayList<Film>) :
         with(holder) {
             Glide.with(tvPoster)
                 .load(filmListPosition.poster)
-                .apply(RequestOptions.centerInsideTransform())
+                .apply(RequestOptions.centerCropTransform())
                 .into(tvPoster)
             title.text = filmListPosition.judul
             genre.text = filmListPosition.genre
