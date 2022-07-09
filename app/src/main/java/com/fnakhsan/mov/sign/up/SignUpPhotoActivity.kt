@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -88,6 +89,7 @@ class SignUpPhotoActivity : AppCompatActivity(), PermissionListener {
                         ).show()
 
                         ref.downloadUrl.addOnSuccessListener {
+                            Log.d(TAG, it.toString())
                             preferences.setValues("url", it.toString())
                         }
 
@@ -125,6 +127,10 @@ class SignUpPhotoActivity : AppCompatActivity(), PermissionListener {
 
     override fun onPermissionRationaleShouldBeShown(p0: PermissionRequest?, p1: PermissionToken?) {
 
+    }
+
+    companion object {
+        const val TAG = "Photo"
     }
 
 }

@@ -21,6 +21,7 @@ class SignUpActivity : AppCompatActivity() {
 
     private lateinit var mDatabaseUserRef: DatabaseReference
     private lateinit var isIntent: String
+    private lateinit var preferences : Preferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

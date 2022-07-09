@@ -38,7 +38,6 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Log.d(TAG, "pref")
         preferences = Preferences(activity!!.applicationContext)
-        Log.d(TAG, "conn")
         mDatabaseRef =
             FirebaseDatabase.getInstance("https://bwa-mov-fbe4b-default-rtdb.asia-southeast1.firebasedatabase.app/")
                 .getReference("Film")
@@ -59,25 +58,23 @@ class HomeFragment : Fragment() {
             rvCs.layoutManager = csLayoutManager
             rvCs.addItemDecoration(DividerItemDecoration(context, csLayoutManager.orientation))
             Log.d(TAG, "cs")
-
         }
-
-        Glide.with(this)
-            .load(preferences.getValues("url"))
-            .apply(RequestOptions.circleCropTransform())
-            .into(homeBinding.imgProfile)
-        Log.d(TAG, "pp")
+        Log.d(TAG, preferences.getValues("url").toString())
+        val getPhoto = preferences.getValues("url")
+        if (getPhoto != null){
+            Glide.with(this)
+                .load(getPhoto)
+                .apply(RequestOptions.circleCropTransform())
+                .into(homeBinding.imgProfile)
+            Log.d(TAG, "pp")
+        }
         getData()
     }
 
     private fun currency(balance: Double, tvBalance: TextView) {
-        Log.d(TAG, "1")
         val localID = Locale("in", "ID")
-        Log.d(TAG, "2")
         val format = NumberFormat.getCurrencyInstance(localID)
-        Log.d(TAG, "3")
         tvBalance.text = format.format(balance)
-        Log.d(TAG, "4")
     }
 
     private fun getData() {
