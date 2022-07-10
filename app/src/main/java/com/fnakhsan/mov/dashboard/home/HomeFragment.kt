@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.fnakhsan.mov.R
 import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,6 +24,7 @@ import kotlin.collections.ArrayList
 class HomeFragment : Fragment() {
     private lateinit var homeBinding: FragmentHomeBinding
     private lateinit var mDatabaseRef: DatabaseReference
+    private lateinit var mUserRef: DatabaseReference
     private lateinit var preferences: Preferences
     private var filmList = ArrayList<Film>()
     override fun onCreateView(
@@ -41,6 +43,8 @@ class HomeFragment : Fragment() {
         mDatabaseRef =
             FirebaseDatabase.getInstance("https://bwa-mov-fbe4b-default-rtdb.asia-southeast1.firebasedatabase.app/")
                 .getReference("Film")
+        mUserRef = FirebaseDatabase.getInstance("https://bwa-mov-fbe4b-default-rtdb.asia-southeast1.firebasedatabase.app/")
+            .getReference("User")
 
         with(homeBinding) {
             tvName.text = preferences.getValues("user")
@@ -50,7 +54,8 @@ class HomeFragment : Fragment() {
                 currency(balance!!.toDouble(), tvBalance)
             }
             Log.d(TAG, "balance")
-            val npLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            val npLayoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             rvNp.layoutManager = npLayoutManager
             rvNp.addItemDecoration(DividerItemDecoration(context, npLayoutManager.orientation))
             Log.d(TAG, "np")
@@ -61,12 +66,14 @@ class HomeFragment : Fragment() {
         }
         Log.d(TAG, preferences.getValues("url").toString())
         val getPhoto = preferences.getValues("url")
-        if (getPhoto != null){
-            Glide.with(this)
+        if (getPhoto != null) {
+            Glide.with(homeBinding.imgProfile)
                 .load(getPhoto)
                 .apply(RequestOptions.circleCropTransform())
                 .into(homeBinding.imgProfile)
             Log.d(TAG, "pp")
+        } else {
+            homeBinding.imgProfile.setImageResource(R.drawable.user_pic)
         }
         getData()
     }
@@ -80,13 +87,13 @@ class HomeFragment : Fragment() {
     private fun getData() {
         mDatabaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                for (getSnapshot in snapshot.children){
+                for (getSnapshot in snapshot.children) {
                     val film = getSnapshot.getValue(Film::class.java)
                     filmList.add(film!!)
                 }
                 Log.d(TAG, "$filmList")
 
-                with(homeBinding){
+                with(homeBinding) {
                     rvNp.adapter = NowPlayingAdapter(filmList)
                     Log.d(TAG, "npAdapter")
                     rvCs.adapter = ComingSoonAdapter(filmList)

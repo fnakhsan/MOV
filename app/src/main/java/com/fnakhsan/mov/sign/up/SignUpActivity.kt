@@ -8,7 +8,6 @@ import android.util.Patterns.EMAIL_ADDRESS
 import android.widget.Toast
 import com.fnakhsan.mov.data.User
 import com.fnakhsan.mov.databinding.ActivitySignUpBinding
-import com.fnakhsan.mov.utils.Preferences
 import com.google.firebase.database.*
 
 class SignUpActivity : AppCompatActivity() {
@@ -21,7 +20,6 @@ class SignUpActivity : AppCompatActivity() {
 
     private lateinit var mDatabaseUserRef: DatabaseReference
     private lateinit var isIntent: String
-    private lateinit var preferences : Preferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

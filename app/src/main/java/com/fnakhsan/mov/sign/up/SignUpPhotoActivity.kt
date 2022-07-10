@@ -16,6 +16,7 @@ import com.fnakhsan.mov.R
 import com.fnakhsan.mov.dashboard.DashboardActivity
 import com.fnakhsan.mov.databinding.ActivitySignUpPhotoBinding
 import com.fnakhsan.mov.utils.Preferences
+import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.karumi.dexter.Dexter
@@ -32,6 +33,7 @@ class SignUpPhotoActivity : AppCompatActivity(), PermissionListener {
     private lateinit var filePath: Uri
     private lateinit var storage: FirebaseStorage
     private lateinit var storageRef: StorageReference
+    private lateinit var mDatabaseUserRef: DatabaseReference
     private lateinit var preferences: Preferences
     private var getImage =
         registerForActivityResult(ActivityResultContracts.GetContent()) {
@@ -52,11 +54,16 @@ class SignUpPhotoActivity : AppCompatActivity(), PermissionListener {
         setContentView(signUpPhotoBinding.root)
 
         preferences = Preferences(this)
+        val username = intent.getStringExtra("username")
         storage = FirebaseStorage.getInstance("gs://bwa-mov-fbe4b.appspot.com/")
         storageRef = storage.reference
+        mDatabaseUserRef =
+            FirebaseDatabase
+                .getInstance("https://bwa-mov-fbe4b-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                .getReference("User")
 
         with(signUpPhotoBinding) {
-            tvWelcome.text = "Selamat Datang,\n" + intent.getStringExtra("username")
+            tvWelcome.text = "Selamat Datang,\n$username"
             btnUpload.setOnClickListener {
                 if (statusAdd) {
                     statusAdd = false
@@ -89,8 +96,11 @@ class SignUpPhotoActivity : AppCompatActivity(), PermissionListener {
                         ).show()
 
                         ref.downloadUrl.addOnSuccessListener {
-                            Log.d(TAG, it.toString())
+                            Log.d(TAG, "100 $it")
+                            val url =  it.toString()
                             preferences.setValues("url", it.toString())
+                            pushImg(username!!, url)
+                            Log.d(TAG, "101 $url")
                         }
 
                         finishAffinity()
@@ -107,6 +117,20 @@ class SignUpPhotoActivity : AppCompatActivity(), PermissionListener {
                     }
             }
         }
+    }
+
+    private fun pushImg(username: String, url: String) {
+        mDatabaseUserRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                mDatabaseUserRef.child(username).child("url").setValue(url)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(this@SignUpPhotoActivity, error.message, Toast.LENGTH_SHORT).show()
+                Log.w(TAG, "Failed to read value.", error.toException())
+            }
+
+        })
     }
 
     override fun onPermissionGranted(p0: PermissionGrantedResponse?) {
