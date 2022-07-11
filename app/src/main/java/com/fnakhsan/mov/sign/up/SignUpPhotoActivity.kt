@@ -62,6 +62,7 @@ class SignUpPhotoActivity : AppCompatActivity(), PermissionListener {
                 .getInstance("https://bwa-mov-fbe4b-default-rtdb.asia-southeast1.firebasedatabase.app/")
                 .getReference("User")
 
+        Log.d(TAG, preferences.getValues("nama").toString())
         with(signUpPhotoBinding) {
             tvWelcome.text = "Selamat Datang,\n$username"
             btnUpload.setOnClickListener {
@@ -98,7 +99,6 @@ class SignUpPhotoActivity : AppCompatActivity(), PermissionListener {
                         ref.downloadUrl.addOnSuccessListener {
                             Log.d(TAG, "100 $it")
                             val url =  it.toString()
-                            preferences.setValues("url", it.toString())
                             pushImg(username!!, url)
                             Log.d(TAG, "101 $url")
                         }

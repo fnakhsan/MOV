@@ -36,8 +36,10 @@ class SignInActivity : AppCompatActivity() {
             FirebaseDatabase
                 .getInstance("https://bwa-mov-fbe4b-default-rtdb.asia-southeast1.firebasedatabase.app/")
                 .getReference("User")
+        Log.d(TAG, "first")
         preferences = Preferences(this)
 
+        Log.d(TAG, "second")
         preferences.setValues("onBoarding", "1")
         if (preferences.getValues("status") == "1"){
             finishAffinity()

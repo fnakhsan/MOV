@@ -8,6 +8,7 @@ import android.util.Patterns.EMAIL_ADDRESS
 import android.widget.Toast
 import com.fnakhsan.mov.data.User
 import com.fnakhsan.mov.databinding.ActivitySignUpBinding
+import com.fnakhsan.mov.utils.Preferences
 import com.google.firebase.database.*
 
 class SignUpActivity : AppCompatActivity() {
@@ -20,6 +21,7 @@ class SignUpActivity : AppCompatActivity() {
 
     private lateinit var mDatabaseUserRef: DatabaseReference
     private lateinit var isIntent: String
+    private lateinit var preferences: Preferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +29,7 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(signUpBinding.root)
 
         isIntent = "no"
-
+        preferences = Preferences(this)
         mDatabaseUserRef =
             FirebaseDatabase
                 .getInstance("https://bwa-mov-fbe4b-default-rtdb.asia-southeast1.firebasedatabase.app/")
@@ -104,6 +106,17 @@ class SignUpActivity : AppCompatActivity() {
                             this@SignUpActivity,
                             SignUpPhotoActivity::class.java
                         ).putExtra("username", dataUser.username)
+                        with(preferences){
+                            Log.d(TAG, "access pref..")
+                            setValues("email", dataUser.password.toString())
+                            Log.d(TAG, dataUser.password.toString())
+                            setValues("nama", dataUser.nama.toString())
+                            Log.d(TAG, dataUser.nama.toString())
+                            setValues("user", dataUser.username.toString())
+                            Log.d(TAG, dataUser.username.toString())
+                            setValues("email", dataUser.email.toString())
+                            Log.d(TAG, dataUser.email.toString())
+                        }
                         startActivity(intent)
                     } else {
                         Toast.makeText(
@@ -129,6 +142,6 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val TAG = "Sign_Up"
+        private const val TAG = "Up"
     }
 }

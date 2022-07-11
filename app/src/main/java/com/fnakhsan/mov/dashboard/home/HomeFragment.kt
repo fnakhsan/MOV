@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.fnakhsan.mov.R
-import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -38,7 +37,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d(TAG, "pref")
         preferences = Preferences(activity!!.applicationContext)
         mDatabaseRef =
             FirebaseDatabase.getInstance("https://bwa-mov-fbe4b-default-rtdb.asia-southeast1.firebasedatabase.app/")
@@ -49,20 +47,16 @@ class HomeFragment : Fragment() {
         with(homeBinding) {
             tvName.text = preferences.getValues("user")
             val balance = preferences.getValues("saldo")
-            Log.d(TAG, "getPref")
             if (!balance.equals("")) {
                 currency(balance!!.toDouble(), tvBalance)
             }
-            Log.d(TAG, "balance")
             val npLayoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             rvNp.layoutManager = npLayoutManager
             rvNp.addItemDecoration(DividerItemDecoration(context, npLayoutManager.orientation))
-            Log.d(TAG, "np")
             val csLayoutManager = LinearLayoutManager(context)
             rvCs.layoutManager = csLayoutManager
             rvCs.addItemDecoration(DividerItemDecoration(context, csLayoutManager.orientation))
-            Log.d(TAG, "cs")
         }
         Log.d(TAG, preferences.getValues("url").toString())
         val getPhoto = preferences.getValues("url")
@@ -91,13 +85,10 @@ class HomeFragment : Fragment() {
                     val film = getSnapshot.getValue(Film::class.java)
                     filmList.add(film!!)
                 }
-                Log.d(TAG, "$filmList")
 
                 with(homeBinding) {
                     rvNp.adapter = NowPlayingAdapter(filmList)
-                    Log.d(TAG, "npAdapter")
                     rvCs.adapter = ComingSoonAdapter(filmList)
-                    Log.d(TAG, "csAdapter")
                 }
             }
 
