@@ -41,8 +41,9 @@ class HomeFragment : Fragment() {
         mDatabaseRef =
             FirebaseDatabase.getInstance("https://bwa-mov-fbe4b-default-rtdb.asia-southeast1.firebasedatabase.app/")
                 .getReference("Film")
-        mUserRef = FirebaseDatabase.getInstance("https://bwa-mov-fbe4b-default-rtdb.asia-southeast1.firebasedatabase.app/")
-            .getReference("User")
+        mUserRef =
+            FirebaseDatabase.getInstance("https://bwa-mov-fbe4b-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                .getReference("User")
 
         with(homeBinding) {
             tvName.text = preferences.getValues("user")
@@ -60,15 +61,19 @@ class HomeFragment : Fragment() {
         }
         Log.d(TAG, preferences.getValues("url").toString())
         val getPhoto = preferences.getValues("url")
-        if (getPhoto != null) {
-            Glide.with(homeBinding.imgProfile)
-                .load(getPhoto)
-                .apply(RequestOptions.circleCropTransform())
-                .into(homeBinding.imgProfile)
-            Log.d(TAG, "pp")
-        } else {
-            homeBinding.imgProfile.setImageResource(R.drawable.user_pic)
-        }
+        Glide.with(homeBinding.imgProfile)
+            .load(getPhoto)
+            .apply(RequestOptions.circleCropTransform())
+            .into(homeBinding.imgProfile)
+//        if (getPhoto != null) {
+//            Glide.with(homeBinding.imgProfile)
+//                .load(getPhoto)
+//                .apply(RequestOptions.circleCropTransform())
+//                .into(homeBinding.imgProfile)
+//            Log.d(TAG, "pp")
+//        } else {
+//            homeBinding.imgProfile.setImageResource(R.drawable.user_pic)
+//        }
         getData()
     }
 

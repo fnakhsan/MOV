@@ -10,14 +10,18 @@ import com.fnakhsan.mov.dashboard.home.HomeFragment
 import com.fnakhsan.mov.dashboard.setting.SettingFragment
 import com.fnakhsan.mov.dashboard.ticket.TicketFragment
 import com.fnakhsan.mov.databinding.ActivityDashboardBinding
+import com.fnakhsan.mov.utils.Preferences
 import com.google.firebase.database.core.Tag
 
 class DashboardActivity : AppCompatActivity() {
     private lateinit var dashboardBinding: ActivityDashboardBinding
+    private lateinit var preferences: Preferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dashboardBinding = ActivityDashboardBinding.inflate(layoutInflater)
         setContentView(dashboardBinding.root)
+        preferences = Preferences(this)
+        preferences.setValues("status", "2")
         setFragment(HomeFragment())
 
         with(dashboardBinding) {

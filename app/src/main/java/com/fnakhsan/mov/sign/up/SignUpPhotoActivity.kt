@@ -88,7 +88,7 @@ class SignUpPhotoActivity : AppCompatActivity(), PermissionListener {
                 signUpPhotoBinding.loading.visibility = View.VISIBLE
                 val ref = storageRef.child("Profile Picture/" + UUID.randomUUID().toString())
                 ref.putFile(filePath)
-                    .addOnSuccessListener {
+                    .addOnCompleteListener {
                         signUpPhotoBinding.loading.visibility = View.INVISIBLE
                         Toast.makeText(
                             this@SignUpPhotoActivity,
@@ -99,10 +99,16 @@ class SignUpPhotoActivity : AppCompatActivity(), PermissionListener {
                         ref.downloadUrl.addOnSuccessListener {
                             Log.d(TAG, "100 $it")
                             val url =  it.toString()
+                            preferences.setValues("url", url)
                             pushImg(username!!, url)
                             Log.d(TAG, "101 $url")
                         }
+                        ref.downloadUrl.addOnFailureListener{
+                            Log.d(TAG, it.toString())
+                        }
 
+                        preferences.setValues("url", ref.downloadUrl.toString())
+                        Log.d(TAG, ref.downloadUrl.toString())
                         finishAffinity()
                         val intent = Intent(this@SignUpPhotoActivity, DashboardActivity::class.java)
                         startActivity(intent)

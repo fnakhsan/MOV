@@ -36,16 +36,15 @@ class SignInActivity : AppCompatActivity() {
             FirebaseDatabase
                 .getInstance("https://bwa-mov-fbe4b-default-rtdb.asia-southeast1.firebasedatabase.app/")
                 .getReference("User")
-        Log.d(TAG, "first")
         preferences = Preferences(this)
 
         Log.d(TAG, "second")
-        preferences.setValues("onBoarding", "1")
-        if (preferences.getValues("status") == "1"){
-            finishAffinity()
-            val intent = Intent(this@SignInActivity, DashboardActivity::class.java)
-            startActivity(intent)
-        }
+        preferences.setValues("status", "1")
+//        if (preferences.getValues("status") == "1"){
+//            finishAffinity()
+//            val intent = Intent(this@SignInActivity, DashboardActivity::class.java)
+//            startActivity(intent)
+//        }
         signInBinding.btnSignIn.setOnClickListener {
             iUsername = signInBinding.edtUsername.text.toString()
             iPassword = signInBinding.edtPassword.text.toString()
