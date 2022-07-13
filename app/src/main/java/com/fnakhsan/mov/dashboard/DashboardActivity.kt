@@ -22,6 +22,8 @@ class DashboardActivity : AppCompatActivity() {
         setContentView(dashboardBinding.root)
         preferences = Preferences(this)
         preferences.setValues("status", "2")
+        val url = preferences.getValues("url")
+        Log.d(TAG, url.toString())
         setFragment(HomeFragment())
 
         with(dashboardBinding) {
