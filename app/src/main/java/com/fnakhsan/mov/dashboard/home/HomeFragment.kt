@@ -61,19 +61,15 @@ class HomeFragment : Fragment() {
         }
         Log.d(TAG, preferences.getValues("url").toString())
         val getPhoto = preferences.getValues("url")
-        Glide.with(homeBinding.imgProfile)
-            .load(getPhoto)
-            .apply(RequestOptions.circleCropTransform())
-            .into(homeBinding.imgProfile)
-//        if (getPhoto != null) {
-//            Glide.with(homeBinding.imgProfile)
-//                .load(getPhoto)
-//                .apply(RequestOptions.circleCropTransform())
-//                .into(homeBinding.imgProfile)
-//            Log.d(TAG, "pp")
-//        } else {
-//            homeBinding.imgProfile.setImageResource(R.drawable.user_pic)
-//        }
+        Log.d(TAG, (getPhoto == "").toString())
+        if (getPhoto == "") {
+            homeBinding.imgProfile.setImageResource(R.drawable.user_pic)
+        } else {
+            Glide.with(homeBinding.imgProfile)
+                .load(getPhoto)
+                .apply(RequestOptions.circleCropTransform())
+                .into(homeBinding.imgProfile)
+        }
         getData()
     }
 
