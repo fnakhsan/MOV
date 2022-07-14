@@ -1,7 +1,9 @@
 package com.fnakhsan.mov.dashboard.home
 
+import android.content.Intent
 import android.icu.text.NumberFormat
 import android.os.Bundle
+import android.telecom.Call
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.fnakhsan.mov.MovieDetailActivity
 import com.fnakhsan.mov.data.Film
 import com.fnakhsan.mov.databinding.FragmentHomeBinding
 import com.fnakhsan.mov.utils.Preferences
@@ -88,8 +91,31 @@ class HomeFragment : Fragment() {
                 }
 
                 with(homeBinding) {
-                    rvNp.adapter = NowPlayingAdapter(filmList)
-                    rvCs.adapter = ComingSoonAdapter(filmList)
+                    val adapterNP = NowPlayingAdapter(filmList)
+                    rvNp.adapter = adapterNP
+                    adapterNP.setOnItemCLickCallback(object :
+                        NowPlayingAdapter.OnItemClickCallback {
+                        override fun onItemClicked(film: Film) {
+                            val intent = Intent(context, MovieDetailActivity::class.java).putExtra(
+                                "film",
+                                film
+                            )
+                            startActivity(intent)
+                        }
+                    })
+
+                    val adapterCS = ComingSoonAdapter(filmList)
+                    rvCs.adapter = adapterCS
+                    adapterCS.setOnItemCLickCallback(object :
+                        ComingSoonAdapter.OnItemClickCallback {
+                        override fun onItemClicked(film: Film) {
+                            val intent = Intent(context, MovieDetailActivity::class.java).putExtra(
+                                "film",
+                                film
+                            )
+                            startActivity(intent)
+                        }
+                    })
                 }
             }
 

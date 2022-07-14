@@ -13,14 +13,17 @@
 
         <TextView
             android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="36dp"
+            android:layout_marginEnd="16dp"
             android:fontFamily="@font/montserrat_semi_bold"
+            android:maxLines="1"
             android:text="@string/nama_lengkap"
             android:textColor="@color/white"
             android:textSize="24sp"
+            app:layout_constraintEnd_toStartOf="@+id/img_profile"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
