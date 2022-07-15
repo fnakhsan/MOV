@@ -8,7 +8,7 @@
     tools:context=".MovieDetailActivity">
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/iv_cover"
         android:layout_width="match_parent"
         android:layout_height="227dp"
         android:contentDescription="@string/movie_cover"
@@ -19,7 +19,7 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -30,11 +30,12 @@
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_cover" />
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/tv_genre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -44,7 +45,7 @@
         android:textColor="@color/white"
         android:textSize="11sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
     <TextView
         android:id="@+id/sb"
@@ -57,7 +58,7 @@
         android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView13" />
+        app:layout_constraintTop_toBottomOf="@id/tv_genre" />
 
     <TextView
         android:id="@+id/sb_detail"
@@ -111,7 +112,7 @@
         app:layout_constraintTop_toBottomOf="@+id/wp" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btn_seat"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
