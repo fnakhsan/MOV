@@ -55,7 +55,7 @@
             android:name=".ChooseSeatActivity"
             android:exported="false" />
         <activity
-            android:name=".MovieDetailActivity"
+            android:name=".dashboard.home.detail.MovieDetailActivity"
             android:exported="false" />
         <activity
             android:name=".sign.up.SignUpPhotoActivity"
