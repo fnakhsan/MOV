@@ -16,6 +16,7 @@
         tools:src="@tools:sample/avatars" />
 
     <TextView
+        android:id="@+id/player_name"
         android:layout_width="64dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat_light"
@@ -23,10 +24,10 @@
         android:maxLines="1"
         android:textColor="@color/white"
         android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/circleImageView"
-        tools:text="@string/whos_played"/>
+        tools:text="@string/whos_played" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

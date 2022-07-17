@@ -37,10 +37,10 @@ class NowPlayingAdapter(private val filmList: ArrayList<Film>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val filmListPosition = filmList[position]
         with(holder) {
-            Glide.with(tvPoster)
+            Glide.with(ivPoster)
                 .load(filmListPosition.poster)
                 .apply(RequestOptions.centerInsideTransform())
-                .into(tvPoster)
+                .into(ivPoster)
             title.text = filmListPosition.judul
             genre.text = filmListPosition.genre
             rate.text = filmListPosition.rating
@@ -51,10 +51,10 @@ class NowPlayingAdapter(private val filmList: ArrayList<Film>) :
     override fun getItemCount(): Int = filmList.size
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val tvPoster = view.findViewById<ImageView>(R.id.iv_poster)
-        val title = view.findViewById<TextView>(R.id.tv_title)
-        val genre = view.findViewById<TextView>(R.id.tv_genre)
-        val rate = view.findViewById<TextView>(R.id.tv_rate)
+        val ivPoster: ImageView = view.findViewById(R.id.iv_poster)
+        val title: TextView = view.findViewById(R.id.tv_title)
+        val genre: TextView = view.findViewById(R.id.tv_genre)
+        val rate: TextView = view.findViewById(R.id.tv_rate)
     }
 
 }

@@ -2,17 +2,20 @@ package com.fnakhsan.mov.dashboard.home.detail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.fnakhsan.mov.data.Film
 import com.fnakhsan.mov.data.Play
 import com.fnakhsan.mov.databinding.ActivityMovieDetailBinding
+import com.fnakhsan.mov.sign.up.SignUpActivity
 import com.google.firebase.database.*
 
 class MovieDetailActivity : AppCompatActivity() {
     private lateinit var movieDetailBinding: ActivityMovieDetailBinding
-    private lateinit var play: ArrayList<Play>
+    private lateinit var players: ArrayList<Play>
     private lateinit var mPlaysRef: DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +28,7 @@ class MovieDetailActivity : AppCompatActivity() {
                 .getReference("Film").child(data?.judul.toString()).child("play")
 
         with(movieDetailBinding) {
-            tvTitle.text = data?.genre
+            tvTitle.text = data?.judul
             tvGenre.text = data?.genre
             tvRate.text = data?.rating
             Glide.with(this@MovieDetailActivity)
@@ -43,16 +46,23 @@ class MovieDetailActivity : AppCompatActivity() {
     private fun getData() {
         mPlaysRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                play.clear()
-                for (data in snapshot.children){
-
+                players.clear()
+                for (data in snapshot.children) {
+                    val player = data.getValue(Play::class.java)
+                    players.add(player!!)
                 }
+                movieDetailBinding.rvWp.adapter = PlayerAdapter(players)
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                Toast.makeText(this@MovieDetailActivity, error.message, Toast.LENGTH_SHORT).show()
+                Log.w(TAG, "Failed to read value.", error.toException())
             }
 
         })
+    }
+
+    companion object {
+        private const val TAG = "detail"
     }
 }
