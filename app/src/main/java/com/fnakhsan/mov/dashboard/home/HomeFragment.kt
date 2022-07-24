@@ -43,12 +43,14 @@ class HomeFragment : Fragment() {
         mDatabaseRef =
             FirebaseDatabase.getInstance("https://bwa-mov-fbe4b-default-rtdb.asia-southeast1.firebasedatabase.app/")
                 .getReference("Film")
+
+        val username = preferences.getValues("user")
         mUserRef =
             FirebaseDatabase.getInstance("https://bwa-mov-fbe4b-default-rtdb.asia-southeast1.firebasedatabase.app/")
-                .getReference("User")
+                .getReference("User").child("$username")
 
-        with(homeBinding) {
-            tvName.text = preferences.getValues("user")
+        homeBinding.apply {
+            tvName.text = username
             val balance = preferences.getValues("saldo")
             if (!balance.equals("")) {
                 currency(balance!!.toDouble(), tvBalance)
@@ -61,18 +63,32 @@ class HomeFragment : Fragment() {
             rvCs.layoutManager = csLayoutManager
             rvCs.addItemDecoration(DividerItemDecoration(context, csLayoutManager.orientation))
         }
+
         Log.d(TAG, preferences.getValues("url").toString())
         val getPhoto = preferences.getValues("url")
         Log.d(TAG, (getPhoto == "").toString())
         if (getPhoto == "") {
-            homeBinding.imgProfile.setImageResource(R.drawable.user_pic)
+            mUserRef.get().addOnSuccessListener {
+                if (it.exists()) {
+                    addPhoto(it.child("url").value.toString())
+                    Log.d(TAG, it.child("url").value.toString())
+                } else {
+                    homeBinding.imgProfile.setImageResource(R.drawable.user_pic)
+                }
+            }.addOnFailureListener{
+                Log.w(TAG, "Failed to read value.", it)
+            }
         } else {
-            Glide.with(homeBinding.imgProfile)
-                .load(getPhoto)
-                .apply(RequestOptions.circleCropTransform())
-                .into(homeBinding.imgProfile)
+            addPhoto(getPhoto)
         }
         getData()
+    }
+
+    private fun addPhoto(url: String?) {
+        Glide.with(homeBinding.imgProfile)
+            .load(url)
+            .apply(RequestOptions.circleCropTransform())
+            .into(homeBinding.imgProfile)
     }
 
     private fun currency(balance: Double, tvBalance: TextView) {
@@ -126,7 +142,7 @@ class HomeFragment : Fragment() {
     }
 
     companion object {
-        const val TAG = "Home"
+        const val TAG = "HomeFragment"
     }
 
 }
