@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.UploadTask
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionDeniedResponse
@@ -91,51 +92,56 @@ class SignUpPhotoActivity : AppCompatActivity(), PermissionListener {
             }
             btnSaveUpload.setOnClickListener {
                 signUpPhotoBinding.loading.visibility = View.VISIBLE
-                val ref = storageRef.child("Profile Picture/" + UUID.randomUUID().toString())
-                ref.putFile(filePath)
-                    .addOnSuccessListener {
-                        signUpPhotoBinding.loading.visibility = View.INVISIBLE
-                        Toast.makeText(
-                            this@SignUpPhotoActivity,
-                            "Uploaded",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        lifecycleScope.launch(Dispatchers.IO) {
-                            val success = async {
+                lifecycleScope.launch(Dispatchers.IO) {
+                        val ref =
+                            storageRef.child("Profile Picture/" + UUID.randomUUID().toString())
+                        ref.putFile(filePath)
+                            .addOnSuccessListener {
+                                signUpPhotoBinding.loading.visibility = View.INVISIBLE
+                                Toast.makeText(
+                                    this@SignUpPhotoActivity,
+                                    "Uploaded",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                                 ref.downloadUrl.addOnSuccessListener { uri ->
                                     val url = uri.toString()
                                     Log.d(TAG, "first: $url")
 //                                    pushImg(username!!, url)
-                                        do {
-                                            val pushUrl =
-                                                mDatabaseUserRef.child(username!!).child("url")
-                                                    .setValue(url)
-                                        } while (!pushUrl.isSuccessful)
-                                        Log.d(TAG, "second: ${preferences.setValues("url", url)}")
+                                    do {
+                                        val pushUrl =
+                                            mDatabaseUserRef.child(username!!).child("url")
+                                                .setValue(url)
+                                    } while (!pushUrl.isSuccessful)
+                                    Log.d(TAG, "second: ${preferences.setValues("url", url)}")
+                                    do {
                                         preferences.setValues("url", url)
+                                    } while (pushUrl == "")
                                 }
-                                return@async true
+                                ref.downloadUrl.addOnFailureListener { exception ->
+                                    Log.d(TAG, exception.toString())
+                                }
+
                             }
-                            ref.downloadUrl.addOnFailureListener { exception ->
-                                Log.d(TAG, exception.toString())
+                            .addOnFailureListener {
+                                signUpPhotoBinding.loading.visibility = View.INVISIBLE
+                                Toast.makeText(
+                                    this@SignUpPhotoActivity,
+                                    "Upload failed",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
-                            if (success.await()) {
-                                Log.d(TAG, "third: ${mDatabaseUserRef.child(username!!).child("url").get()}")
-                                finishAffinity()
-                                val intent =
-                                    Intent(this@SignUpPhotoActivity, DashboardActivity::class.java)
-                                startActivity(intent)
-                            }
-                        }
+
+                    if (success.await() == Result.success()) {
+                        Log.d(
+                            TAG,
+                            "third: ${mDatabaseUserRef.child(username!!).child("url").get()}"
+                        )
+                        finishAffinity()
+                        val intent =
+                            Intent(this@SignUpPhotoActivity, DashboardActivity::class.java)
+                        startActivity(intent)
                     }
-                    .addOnFailureListener {
-                        signUpPhotoBinding.loading.visibility = View.INVISIBLE
-                        Toast.makeText(
-                            this@SignUpPhotoActivity,
-                            "Upload failed",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+                }
             }
         }
     }
