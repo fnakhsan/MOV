@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.fnakhsan.mov.dashboard.home.detail.MovieDetailActivity
 import com.fnakhsan.mov.data.Film
+import com.fnakhsan.mov.data.User
 import com.fnakhsan.mov.databinding.FragmentHomeBinding
 import com.fnakhsan.mov.utils.Preferences
 import com.google.firebase.database.*
@@ -66,20 +67,22 @@ class HomeFragment : Fragment() {
 
         Log.d(TAG, preferences.getValues("url").toString())
         val getPhoto = preferences.getValues("url")
-        Log.d(TAG, (getPhoto == "").toString())
-        if (getPhoto == "") {
+        Log.d(TAG, (getPhoto == String()).toString())
+        if (getPhoto == String()) {
+            addPhoto(getPhoto)
+        } else {
             mUserRef.get().addOnSuccessListener {
                 if (it.exists()) {
-                    addPhoto(it.child("url").value.toString())
-                    Log.d(TAG, it.child("url").value.toString())
+                    val user = it.getValue(User::class.java)
+                    Log.d(TAG, user.toString())
+                    addPhoto(user?.url)
+                    Log.d(TAG, user?.url.toString())
                 } else {
                     homeBinding.imgProfile.setImageResource(R.drawable.user_pic)
                 }
             }.addOnFailureListener{
                 Log.w(TAG, "Failed to read value.", it)
             }
-        } else {
-            addPhoto(getPhoto)
         }
         getData()
     }

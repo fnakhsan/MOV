@@ -10,12 +10,14 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.fnakhsan.mov.R
 import com.fnakhsan.mov.dashboard.DashboardActivity
 import com.fnakhsan.mov.databinding.ActivitySignUpPhotoBinding
 import com.fnakhsan.mov.utils.Preferences
+import com.google.android.gms.tasks.Task
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -25,6 +27,9 @@ import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import java.util.*
 
 
@@ -95,22 +100,33 @@ class SignUpPhotoActivity : AppCompatActivity(), PermissionListener {
                             "Uploaded",
                             Toast.LENGTH_SHORT
                         ).show()
-
-                        ref.downloadUrl.addOnSuccessListener {
-                            val url =  it.toString()
-                            preferences.setValues("url", url)
-                            pushImg(username!!, url)
-                            Log.d(TAG, url)
+                        lifecycleScope.launch(Dispatchers.IO) {
+                            val success = async {
+                                ref.downloadUrl.addOnSuccessListener { uri ->
+                                    val url = uri.toString()
+                                    Log.d(TAG, "first: $url")
+//                                    pushImg(username!!, url)
+                                        do {
+                                            val pushUrl =
+                                                mDatabaseUserRef.child(username!!).child("url")
+                                                    .setValue(url)
+                                        } while (!pushUrl.isSuccessful)
+                                        Log.d(TAG, "second: ${preferences.setValues("url", url)}")
+                                        preferences.setValues("url", url)
+                                }
+                                return@async true
+                            }
+                            ref.downloadUrl.addOnFailureListener { exception ->
+                                Log.d(TAG, exception.toString())
+                            }
+                            if (success.await()) {
+                                Log.d(TAG, "third: ${mDatabaseUserRef.child(username!!).child("url").get()}")
+                                finishAffinity()
+                                val intent =
+                                    Intent(this@SignUpPhotoActivity, DashboardActivity::class.java)
+                                startActivity(intent)
+                            }
                         }
-                        ref.downloadUrl.addOnFailureListener{
-                            Log.d(TAG, it.toString())
-                        }
-
-                        preferences.setValues("url", ref.downloadUrl.toString())
-                        Log.d(TAG, ref.downloadUrl.toString())
-                        finishAffinity()
-                        val intent = Intent(this@SignUpPhotoActivity, DashboardActivity::class.java)
-                        startActivity(intent)
                     }
                     .addOnFailureListener {
                         signUpPhotoBinding.loading.visibility = View.INVISIBLE
@@ -124,19 +140,19 @@ class SignUpPhotoActivity : AppCompatActivity(), PermissionListener {
         }
     }
 
-    private fun pushImg(username: String, url: String) {
-        mDatabaseUserRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                mDatabaseUserRef.child(username).child("url").setValue(url)
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@SignUpPhotoActivity, error.message, Toast.LENGTH_SHORT).show()
-                Log.w(TAG, "Failed to read value.", error.toException())
-            }
-
-        })
-    }
+//    private fun pushImg(username: String, url: String) {
+//        mDatabaseUserRef.addListenerForSingleValueEvent(object : ValueEventListener {
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                mDatabaseUserRef.child(username).child("url").setValue(url)
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//                Toast.makeText(this@SignUpPhotoActivity, error.message, Toast.LENGTH_SHORT).show()
+//                Log.w(TAG, "Failed to read value.", error.toException())
+//            }
+//
+//        })
+//    }
 
     override fun onPermissionGranted(p0: PermissionGrantedResponse?) {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
