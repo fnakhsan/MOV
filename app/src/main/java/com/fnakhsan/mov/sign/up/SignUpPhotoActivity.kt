@@ -114,9 +114,9 @@ class SignUpPhotoActivity : AppCompatActivity(), PermissionListener {
                                         Log.d(TAG, "1")
                                         var getUrl = ""
                                         Log.d(TAG, "2")
+                                        mDatabaseUserRef.child(username!!).child("url")
+                                            .setValue(url).toString()
                                         do {
-                                            mDatabaseUserRef.child(username!!).child("url")
-                                                .setValue(url).toString()
                                             getUrl =
                                                 mDatabaseUserRef.child(username).child("url").get()
                                                     .toString()
