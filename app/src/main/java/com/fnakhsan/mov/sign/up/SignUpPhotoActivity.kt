@@ -26,9 +26,7 @@ import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -92,9 +90,6 @@ class SignUpPhotoActivity : AppCompatActivity(), PermissionListener {
             btnSaveUpload.setOnClickListener {
                 signUpPhotoBinding.loading.visibility = View.VISIBLE
                 lifecycleScope.launch(Dispatchers.IO) {
-                    var complete: Deferred<Boolean> = async {
-                        return@async false
-                    }
                     val ref =
                         storageRef.child("Profile Picture/" + UUID.randomUUID().toString())
                     ref.putFile(filePath)
@@ -105,31 +100,27 @@ class SignUpPhotoActivity : AppCompatActivity(), PermissionListener {
                                 "Uploaded",
                                 Toast.LENGTH_SHORT
                             ).show()
-                            //                                    pushImg(username!!, url)
+//                          pushImg(username!!, url)
                             ref.downloadUrl.addOnSuccessListener { uri ->
                                 val url = uri.toString()
-                                Log.d(TAG, "first: $url")
-                                lifecycleScope.launch(Dispatchers.IO) {
-                                    val result = async {
-                                        Log.d(TAG, "1")
-                                        var getUrl = ""
-                                        Log.d(TAG, "2")
-                                        mDatabaseUserRef.child(username!!).child("url")
-                                            .setValue(url).toString()
-                                        do {
-                                            getUrl =
-                                                mDatabaseUserRef.child(username).child("url").get()
-                                                    .toString()
-                                            Log.d(TAG, "get url from db: $getUrl")
-                                        } while (getUrl != "")
-                                        return@async getUrl
-                                    }
-                                    preferences.setValues("url", result.await())
-                                    Log.d(TAG, "pref url: ${preferences.getValues("url")}")
-                                    complete = async {
-                                        return@async true
-                                    }
-                                }
+                                Log.d(TAG, "url: $url")
+                                mDatabaseUserRef.child(username!!).child("url")
+                                    .setValue(url)
+                                mDatabaseUserRef.child(username).child("url").get()
+                                    .addOnSuccessListener {
+                                        Log.i(TAG, "get url from db: ${it.value}")
+                                        preferences.setValues("url", it.value.toString())
+                                        Log.d(TAG, "pref url: ${preferences.getValues("url")}")
+                                        finishAffinity()
+                                        val intent =
+                                            Intent(
+                                                this@SignUpPhotoActivity,
+                                                DashboardActivity::class.java
+                                            )
+                                        startActivity(intent)
+                                    }.addOnFailureListener {
+                                        Log.e("firebase", "Error getting data", it)
+                                    }.toString()
                             }
                             ref.downloadUrl.addOnFailureListener { exception ->
                                 Log.d(TAG, exception.toString())
@@ -144,18 +135,6 @@ class SignUpPhotoActivity : AppCompatActivity(), PermissionListener {
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
-
-                    if (complete.await()) {
-                        Log.d(
-                            TAG,
-                            "final get url from db: ${mDatabaseUserRef.child(username!!).child("url").get()}"
-                        )
-                        Log.d(TAG, " final pref url: ${preferences.getValues("url")}")
-                        finishAffinity()
-                        val intent =
-                            Intent(this@SignUpPhotoActivity, DashboardActivity::class.java)
-                        startActivity(intent)
-                    }
                 }
             }
         }
