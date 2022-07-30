@@ -17,17 +17,16 @@ import com.fnakhsan.mov.R
 import com.fnakhsan.mov.dashboard.DashboardActivity
 import com.fnakhsan.mov.databinding.ActivitySignUpPhotoBinding
 import com.fnakhsan.mov.utils.Preferences
-import com.google.android.gms.tasks.Task
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import com.google.firebase.storage.UploadTask
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -93,49 +92,65 @@ class SignUpPhotoActivity : AppCompatActivity(), PermissionListener {
             btnSaveUpload.setOnClickListener {
                 signUpPhotoBinding.loading.visibility = View.VISIBLE
                 lifecycleScope.launch(Dispatchers.IO) {
-                        val ref =
-                            storageRef.child("Profile Picture/" + UUID.randomUUID().toString())
-                        ref.putFile(filePath)
-                            .addOnSuccessListener {
-                                signUpPhotoBinding.loading.visibility = View.INVISIBLE
-                                Toast.makeText(
-                                    this@SignUpPhotoActivity,
-                                    "Uploaded",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                ref.downloadUrl.addOnSuccessListener { uri ->
-                                    val url = uri.toString()
-                                    Log.d(TAG, "first: $url")
-//                                    pushImg(username!!, url)
-                                    do {
-                                        val pushUrl =
+                    var complete: Deferred<Boolean> = async {
+                        return@async false
+                    }
+                    val ref =
+                        storageRef.child("Profile Picture/" + UUID.randomUUID().toString())
+                    ref.putFile(filePath)
+                        .addOnSuccessListener {
+                            signUpPhotoBinding.loading.visibility = View.INVISIBLE
+                            Toast.makeText(
+                                this@SignUpPhotoActivity,
+                                "Uploaded",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            //                                    pushImg(username!!, url)
+                            ref.downloadUrl.addOnSuccessListener { uri ->
+                                val url = uri.toString()
+                                Log.d(TAG, "first: $url")
+                                lifecycleScope.launch(Dispatchers.IO) {
+                                    val result = async {
+                                        Log.d(TAG, "1")
+                                        var getUrl = ""
+                                        Log.d(TAG, "2")
+                                        do {
                                             mDatabaseUserRef.child(username!!).child("url")
-                                                .setValue(url)
-                                    } while (!pushUrl.isSuccessful)
-                                    Log.d(TAG, "second: ${preferences.setValues("url", url)}")
-                                    do {
-                                        preferences.setValues("url", url)
-                                    } while (pushUrl == "")
+                                                .setValue(url).toString()
+                                            getUrl =
+                                                mDatabaseUserRef.child(username).child("url").get()
+                                                    .toString()
+                                            Log.d(TAG, "get url from db: $getUrl")
+                                        } while (getUrl != "")
+                                        return@async getUrl
+                                    }
+                                    preferences.setValues("url", result.await())
+                                    Log.d(TAG, "pref url: ${preferences.getValues("url")}")
+                                    complete = async {
+                                        return@async true
+                                    }
                                 }
-                                ref.downloadUrl.addOnFailureListener { exception ->
-                                    Log.d(TAG, exception.toString())
-                                }
-
                             }
-                            .addOnFailureListener {
-                                signUpPhotoBinding.loading.visibility = View.INVISIBLE
-                                Toast.makeText(
-                                    this@SignUpPhotoActivity,
-                                    "Upload failed",
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                            ref.downloadUrl.addOnFailureListener { exception ->
+                                Log.d(TAG, exception.toString())
                             }
 
-                    if (success.await() == Result.success()) {
+                        }
+                        .addOnFailureListener {
+                            signUpPhotoBinding.loading.visibility = View.INVISIBLE
+                            Toast.makeText(
+                                this@SignUpPhotoActivity,
+                                "Upload failed",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+
+                    if (complete.await()) {
                         Log.d(
                             TAG,
-                            "third: ${mDatabaseUserRef.child(username!!).child("url").get()}"
+                            "final get url from db: ${mDatabaseUserRef.child(username!!).child("url").get()}"
                         )
+                        Log.d(TAG, " final pref url: ${preferences.getValues("url")}")
                         finishAffinity()
                         val intent =
                             Intent(this@SignUpPhotoActivity, DashboardActivity::class.java)
