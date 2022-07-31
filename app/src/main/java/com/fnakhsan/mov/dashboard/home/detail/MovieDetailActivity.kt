@@ -1,5 +1,6 @@
 package com.fnakhsan.mov.dashboard.home.detail
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +8,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.fnakhsan.mov.ChooseSeatActivity
 import com.fnakhsan.mov.data.Film
 import com.fnakhsan.mov.data.Play
 import com.fnakhsan.mov.databinding.ActivityMovieDetailBinding
@@ -27,7 +29,7 @@ class MovieDetailActivity : AppCompatActivity() {
             FirebaseDatabase.getInstance("https://bwa-mov-fbe4b-default-rtdb.asia-southeast1.firebasedatabase.app/")
                 .getReference("Film").child(data?.judul.toString()).child("play")
 
-        with(movieDetailBinding) {
+        movieDetailBinding.apply {
             tvTitle.text = data?.judul
             tvGenre.text = data?.genre
             tvRate.text = data?.rating
@@ -37,10 +39,16 @@ class MovieDetailActivity : AppCompatActivity() {
                 .into(ivCover)
             rvWp.layoutManager =
                 LinearLayoutManager(this@MovieDetailActivity, LinearLayoutManager.HORIZONTAL, false)
+            btnSeat.setOnClickListener {
+                val intent = Intent(
+                    this@MovieDetailActivity,
+                    ChooseSeatActivity::class.java
+                ).putExtra("data", data)
+                startActivity(intent)
+            }
         }
 
         getData()
-
     }
 
     private fun getData() {

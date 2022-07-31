@@ -2,6 +2,7 @@ package com.fnakhsan.mov
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.fnakhsan.mov.data.Film
 import com.fnakhsan.mov.databinding.ActivityChooseSeatBinding
 
 class ChooseSeatActivity : AppCompatActivity() {
@@ -10,5 +11,7 @@ class ChooseSeatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         chooseSeatBinding = ActivityChooseSeatBinding.inflate(layoutInflater)
         setContentView(chooseSeatBinding.root)
+
+        intent.getParcelableExtra<Film>("data")
     }
 }

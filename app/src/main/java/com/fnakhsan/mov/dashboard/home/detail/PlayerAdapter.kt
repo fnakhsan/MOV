@@ -14,16 +14,6 @@ import com.fnakhsan.mov.data.Play
 class PlayerAdapter(private val playerList: ArrayList<Play>) :
     RecyclerView.Adapter<PlayerAdapter.ViewHolder>() {
 
-    private lateinit var onItemClickCallback: OnItemClickCallback
-
-    interface OnItemClickCallback {
-        fun onItemClicked(play: Play)
-    }
-
-    fun setOnItemCLickCallback(onItemClickCallback: OnItemClickCallback) {
-        this.onItemClickCallback = onItemClickCallback
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.item_row_whos_played, parent, false)
     )
@@ -36,7 +26,6 @@ class PlayerAdapter(private val playerList: ArrayList<Play>) :
                 .apply(RequestOptions.centerCropTransform())
                 .into(ivPlayer)
             tvPlayer.text = playerListPosition.nama
-            itemView.setOnClickListener { onItemClickCallback.onItemClicked(playerListPosition) }
         }
     }
 

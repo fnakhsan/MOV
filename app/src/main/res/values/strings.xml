@@ -37,7 +37,11 @@
     <string name="movie_cover">movie cover</string>
     <string name="buy_ticket">beli tiket (2)</string>
     <string name="layar_bioskop">Layar Bioskop</string>
-    <string name="seat">A</string>
+    <string name="row1">A</string>
+    <string name="row2">B</string>
+    <string name="row3">C</string>
+    <string name="row4">D</string>
+    <string name="row5">E</string>
     <string name="booked">Booked</string>
     <string name="empty">Empty</string>
     <string name="selected">Selected</string>
