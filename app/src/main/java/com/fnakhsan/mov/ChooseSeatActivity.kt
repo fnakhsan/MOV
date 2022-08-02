@@ -8,7 +8,6 @@ import android.widget.Toast
 import com.fnakhsan.mov.data.Checkout
 import com.fnakhsan.mov.data.Film
 import com.fnakhsan.mov.databinding.ActivityChooseSeatBinding
-import com.fnakhsan.mov.sign.up.SignUpActivity
 import com.google.firebase.database.*
 
 class ChooseSeatActivity : AppCompatActivity() {
@@ -39,6 +38,36 @@ class ChooseSeatActivity : AppCompatActivity() {
                     checkout[number].status = "${i.value}"
                     checkout[number].price = 40000
 
+                    seatStatus(chooseSeatBinding.A1, checkout[number].status)
+                    seatStatus(chooseSeatBinding.A2, checkout[number].status)
+                    seatStatus(chooseSeatBinding.A3, checkout[number].status)
+                    seatStatus(chooseSeatBinding.A4, checkout[number].status)
+                    seatStatus(chooseSeatBinding.A5, checkout[number].status)
+                    seatStatus(chooseSeatBinding.A6, checkout[number].status)
+                    seatStatus(chooseSeatBinding.B1, checkout[number].status)
+                    seatStatus(chooseSeatBinding.B2, checkout[number].status)
+                    seatStatus(chooseSeatBinding.B3, checkout[number].status)
+                    seatStatus(chooseSeatBinding.B4, checkout[number].status)
+                    seatStatus(chooseSeatBinding.B5, checkout[number].status)
+                    seatStatus(chooseSeatBinding.B6, checkout[number].status)
+                    seatStatus(chooseSeatBinding.C1, checkout[number].status)
+                    seatStatus(chooseSeatBinding.C2, checkout[number].status)
+                    seatStatus(chooseSeatBinding.C3, checkout[number].status)
+                    seatStatus(chooseSeatBinding.C4, checkout[number].status)
+                    seatStatus(chooseSeatBinding.C5, checkout[number].status)
+                    seatStatus(chooseSeatBinding.C6, checkout[number].status)
+                    seatStatus(chooseSeatBinding.D1, checkout[number].status)
+                    seatStatus(chooseSeatBinding.D2, checkout[number].status)
+                    seatStatus(chooseSeatBinding.D3, checkout[number].status)
+                    seatStatus(chooseSeatBinding.D4, checkout[number].status)
+                    seatStatus(chooseSeatBinding.D5, checkout[number].status)
+                    seatStatus(chooseSeatBinding.D6, checkout[number].status)
+                    seatStatus(chooseSeatBinding.E1, checkout[number].status)
+                    seatStatus(chooseSeatBinding.E2, checkout[number].status)
+                    seatStatus(chooseSeatBinding.E3, checkout[number].status)
+                    seatStatus(chooseSeatBinding.E4, checkout[number].status)
+                    seatStatus(chooseSeatBinding.E5, checkout[number].status)
+                    seatStatus(chooseSeatBinding.E6, checkout[number].status)
 //                    seatList[number] = "${i.value}"
                     number += 1
                     chooseSeatBinding.A1
@@ -54,7 +83,7 @@ class ChooseSeatActivity : AppCompatActivity() {
         chooseSeatBinding.apply {
             movieTitle.text = data?.judul
 
-            val a1 = A1
+
 
 
 //            mFilmDatabase.child("seats").get().addOnCompleteListener {
@@ -73,72 +102,62 @@ class ChooseSeatActivity : AppCompatActivity() {
         }
     }
 
-    private fun seatStatus() {
-        when (checkout[0].status) {
+//    private fun seatStatus() {
+//        val empty = getDrawable(R.drawable.shape_rect_empty)
+//        val booked = getDrawable(R.drawable.shape_rect_booked)
+//        chooseSeatBinding.apply {
+//            when (checkout[0].status) {
+//                "0" -> A1.background = empty
+//                "1" -> A1.background = booked
+//            }
+//            when (checkout[1].status) {
+//                "0" -> A2.background = empty
+//                "1" -> A2.background = booked
+//            }
+//            when (checkout[2].status) {
+//                "0" -> A3.background = empty
+//                "1" -> A3.background = booked
+//            }
+//            when (checkout[3].status) {
+//                "0" -> A3.background = empty
+//                "1" -> A3.background = booked
+//            }
+//            when (checkout[4].status) {
+//                "0" -> A4.background = empty
+//                "1" -> A4.background = booked
+//            }
+//        }
+//
+//
+//
+//    }
+
+    private fun seatStatus(imageView: ImageView, status: String?){
+        when(status){
             "0" -> {
-                chooseSeatBinding.A1.background = getDrawable(R.drawable.shape_rect_empty)
+                imageView.background = getDrawable(R.drawable.shape_rect_empty)
             }
-
-            "1" -> chooseSeatBinding.A1.background = getDrawable(R.drawable.shape_rect_booked)
+            "1" -> imageView.background = getDrawable(R.drawable.shape_rect_booked)
         }
-        when (checkout[1].status) {
-            "0" -> {
-                chooseSeatBinding.A2.background = getDrawable(R.drawable.shape_rect_empty)
+    }
+
+    private fun seatChangeStatus(imageView: ImageView, status: String?) {
+        var result = status
+        imageView.setOnClickListener {
+            if (status == "1"){
+                Toast.makeText(this, "Maaf bangku ini tidak tersedia", Toast.LENGTH_SHORT).show()
+            } else if (imageView.isSelected) {
+                it.background = getDrawable(R.drawable.shape_rect_empty)
+                result = "0"
+            } else if (!imageView.isSelected){
+                it.background = getDrawable(R.drawable.shape_rect_selected)
+                result = "1"
+                total += 40000
             }
-
-            "1" -> chooseSeatBinding.A2.background = getDrawable(R.drawable.shape_rect_booked)
         }
-        when (checkout[2].status) {
-            "0" -> {
+    }
 
-                chooseSeatBinding.A2.background = getDrawable(R.drawable.shape_rect_empty)
-            }
-
-            "1" -> chooseSeatBinding.A2.background = getDrawable(R.drawable.shape_rect_booked)
-        }
-        when (checkout[0].status) {
-            "0" -> {
-                chooseSeatBinding.A1.background = getDrawable(R.drawable.shape_rect_empty)
-            }
-
-            "1" -> chooseSeatBinding.A1.background = getDrawable(R.drawable.shape_rect_booked)
-        }
-        when (checkout[0].status) {
-            "0" -> {
-                chooseSeatBinding.A1.background = getDrawable(R.drawable.shape_rect_empty)
-            }
-
-            "1" -> chooseSeatBinding.A1.background = getDrawable(R.drawable.shape_rect_booked)
-        }
-        when (checkout[0].status) {
-            "0" -> {
-                chooseSeatBinding.A1.background = getDrawable(R.drawable.shape_rect_empty)
-            }
-
-            "1" -> chooseSeatBinding.A1.background = getDrawable(R.drawable.shape_rect_booked)
-        }
-        when (checkout[0].status) {
-            "0" -> {
-                chooseSeatBinding.A1.background = getDrawable(R.drawable.shape_rect_empty)
-            }
-
-            "1" -> chooseSeatBinding.A1.background = getDrawable(R.drawable.shape_rect_booked)
-        }
-        when (checkout[0].status) {
-            "0" -> {
-                chooseSeatBinding.A1.background = getDrawable(R.drawable.shape_rect_empty)
-            }
-
-            "1" -> chooseSeatBinding.A1.background = getDrawable(R.drawable.shape_rect_booked)
-        }
-        when (checkout[0].status) {
-            "0" -> {
-                chooseSeatBinding.A1.background = getDrawable(R.drawable.shape_rect_empty)
-            }
-
-            "1" -> chooseSeatBinding.A1.background = getDrawable(R.drawable.shape_rect_booked)
-        }
-
+    private fun total(){
 
     }
 
