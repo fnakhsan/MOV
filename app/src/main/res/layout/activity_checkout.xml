@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dark_blue"
-    tools:context=".CheckoutActivity">
+    tools:context=".checkout.CheckoutActivity">
 
     <ImageView
         android:id="@+id/imageView7"
@@ -161,77 +161,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/theater" />
 
-    <ImageView
-        android:id="@+id/seat1"
-        android:layout_width="wrap_content"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_items"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/ic_baseline_event_seat_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView16" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:fontFamily="@font/montserrat_light"
-        android:gravity="center_vertical"
-        android:text="@string/seat_number"
-        android:textColor="@color/white"
-        android:textSize="11sp"
-        app:layout_constraintBottom_toBottomOf="@+id/seat1"
-        app:layout_constraintStart_toEndOf="@id/seat1"
-        app:layout_constraintTop_toTopOf="@+id/seat1" />
-
-    <TextView
-        android:id="@+id/price1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:fontFamily="@font/montserrat_semi_bold"
-        android:text="@string/seat_price"
-        android:textColor="@color/white"
-        android:textSize="11sp"
-        app:layout_constraintBottom_toBottomOf="@+id/seat1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/seat1" />
-
-    <ImageView
-        android:id="@+id/seat2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/ic_baseline_event_seat_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/seat1" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:fontFamily="@font/montserrat_light"
-        android:gravity="center_vertical"
-        android:text="@string/seat_number"
-        android:textColor="@color/white"
-        android:textSize="11sp"
-        app:layout_constraintBottom_toBottomOf="@+id/seat2"
-        app:layout_constraintStart_toEndOf="@id/seat2"
-        app:layout_constraintTop_toTopOf="@+id/seat2" />
-
-    <TextView
-        android:id="@+id/price2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
-        android:fontFamily="@font/montserrat_semi_bold"
-        android:text="@string/seat_price"
-        android:textColor="@color/white"
-        android:textSize="11sp"
-        app:layout_constraintBottom_toBottomOf="@+id/seat2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/seat2" />
+        app:layout_constraintTop_toBottomOf="@id/textView16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -243,8 +182,8 @@
         android:text="@string/total_text"
         android:textColor="@color/white"
         android:textSize="11sp"
-        app:layout_constraintStart_toEndOf="@id/seat2"
-        app:layout_constraintTop_toBottomOf="@+id/seat2" />
+        app:layout_constraintStart_toEndOf="@id/wallet"
+        app:layout_constraintTop_toBottomOf="@+id/rv_items" />
 
     <TextView
         android:id="@+id/total_price"
@@ -257,7 +196,7 @@
         android:textColor="@color/white"
         android:textSize="11sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seat2" />
+        app:layout_constraintTop_toBottomOf="@+id/rv_items" />
 
     <TextView
         android:id="@+id/textView17"

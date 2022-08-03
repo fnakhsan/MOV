@@ -1,11 +1,10 @@
-package com.fnakhsan.mov
+package com.fnakhsan.mov.checkout
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.ImageView
-import android.widget.Toast
+import com.fnakhsan.mov.R
 import com.fnakhsan.mov.data.Checkout
 import com.fnakhsan.mov.data.Film
 import com.fnakhsan.mov.databinding.ActivityChooseSeatBinding
@@ -17,7 +16,8 @@ class ChooseSeatActivity : AppCompatActivity() {
     private var total: Int = 0
 
     private lateinit var dataList: ArrayList<Checkout>
-//    private lateinit var seats: MutableList<Boolean>
+
+    //    private lateinit var seats: MutableList<Boolean>
 //    private lateinit var checkout: MutableList<Checkout>
 //    private lateinit var seatList: MutableMap<Int, String>
     private lateinit var mFilmDatabase: DatabaseReference
@@ -35,22 +35,28 @@ class ChooseSeatActivity : AppCompatActivity() {
 
         chooseSeatBinding.A1.apply {
             setOnClickListener {
-            if (statusA1) {
-                background = getDrawable(R.drawable.shape_rect_empty)
-                statusA1 = false
-                total -= 1
-                totalBuy(total)
-            } else {
-                background = getDrawable(R.drawable.shape_rect_selected)
-                statusA1 = true
-                total += 1
-                totalBuy(total)
+                if (statusA1) {
+                    background = getDrawable(R.drawable.shape_rect_empty)
+                    statusA1 = false
+                    total -= 1
+                    totalBuy(total)
+                } else {
+                    background = getDrawable(R.drawable.shape_rect_selected)
+                    statusA1 = true
+                    total += 1
+                    totalBuy(total)
 
-                val a1 = Checkout("A1", "40000")
-                dataList.add(a1)
+                    val a1 = Checkout("A1", "40000")
+                    dataList.add(a1)
+                }
             }
         }
+
+        chooseSeatBinding.btnBuy.setOnClickListener {
+            val intent = Intent(this, CheckoutActivity::class.java).putExtra("data", data)
+            startActivity(intent)
         }
+
 
 //        mFilmDatabase.child("seats").addListenerForSingleValueEvent(object : ValueEventListener {
 //            override fun onDataChange(snapshot: DataSnapshot) {
@@ -104,8 +110,6 @@ class ChooseSeatActivity : AppCompatActivity() {
 
         chooseSeatBinding.apply {
             movieTitle.text = data?.judul
-
-
 
 
 //            mFilmDatabase.child("seats").get().addOnCompleteListener {

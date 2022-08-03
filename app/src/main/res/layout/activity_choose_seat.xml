@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dark_blue"
-    tools:context=".ChooseSeatActivity">
+    tools:context=".checkout.ChooseSeatActivity">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -58,9 +58,11 @@
         android:text="@string/buy_ticket"
         android:textColor="@color/white"
         android:textSize="16sp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible"/>
 
     <ImageView
         android:id="@+id/screen"
@@ -393,8 +395,8 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_marginBottom="32dp"
+        android:gravity="center"
         app:layout_constraintBottom_toTopOf="@id/btn_buy"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">

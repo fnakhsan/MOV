@@ -49,10 +49,10 @@
             android:name=".EditProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".CheckoutActivity"
+            android:name=".checkout.CheckoutActivity"
             android:exported="false" />
         <activity
-            android:name=".ChooseSeatActivity"
+            android:name=".checkout.ChooseSeatActivity"
             android:exported="false" />
         <activity
             android:name=".dashboard.home.detail.MovieDetailActivity"

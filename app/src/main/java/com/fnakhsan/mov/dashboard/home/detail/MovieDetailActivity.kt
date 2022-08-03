@@ -8,11 +8,10 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.fnakhsan.mov.ChooseSeatActivity
+import com.fnakhsan.mov.checkout.ChooseSeatActivity
 import com.fnakhsan.mov.data.Film
 import com.fnakhsan.mov.data.Play
 import com.fnakhsan.mov.databinding.ActivityMovieDetailBinding
-import com.fnakhsan.mov.sign.up.SignUpActivity
 import com.google.firebase.database.*
 
 class MovieDetailActivity : AppCompatActivity() {
