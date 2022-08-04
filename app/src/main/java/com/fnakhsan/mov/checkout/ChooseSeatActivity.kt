@@ -51,9 +51,16 @@ class ChooseSeatActivity : AppCompatActivity() {
                 }
             }
         }
+        with(chooseSeatBinding) {
+
+        }
+
+        chooseSeatBinding.let {
+
+        }
 
         chooseSeatBinding.btnBuy.setOnClickListener {
-            val intent = Intent(this, CheckoutActivity::class.java).putExtra("data", data)
+            val intent = Intent(this, CheckoutActivity::class.java).putExtra("data", dataList)
             startActivity(intent)
         }
 
