@@ -1,5 +1,6 @@
 package com.fnakhsan.mov.checkout
 
+import android.icu.text.NumberFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.fnakhsan.mov.R
 import com.fnakhsan.mov.data.Checkout
+import java.util.*
 
 class CheckoutAdapter(private val checkoutList: MutableList<Checkout>) :
     RecyclerView.Adapter<CheckoutAdapter.ViewHolder>() {
@@ -24,10 +26,12 @@ class CheckoutAdapter(private val checkoutList: MutableList<Checkout>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val checkoutListPosition = checkoutList[position]
+        val localID = Locale("in", "ID")
+        val format = NumberFormat.getCurrencyInstance(localID)
         holder.apply {
             ivSeat.setImageResource(R.drawable.ic_baseline_event_seat_24)
             tvSeat.text = checkoutListPosition.seat
-            tvPrice.text = checkoutListPosition.price.toString()
+            tvPrice.text = format.format(checkoutListPosition.price?.toDouble() ?: 0)
         }
     }
 
