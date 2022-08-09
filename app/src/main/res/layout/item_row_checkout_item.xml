@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/seat1"
+        android:id="@+id/seat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/ic_baseline_event_seat_24"
@@ -14,6 +14,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/seat_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -22,20 +23,20 @@
         android:text="@string/seat_number"
         android:textColor="@color/white"
         android:textSize="11sp"
-        app:layout_constraintBottom_toBottomOf="@+id/seat1"
-        app:layout_constraintStart_toEndOf="@id/seat1"
-        app:layout_constraintTop_toTopOf="@+id/seat1" />
+        app:layout_constraintBottom_toBottomOf="@+id/seat"
+        app:layout_constraintStart_toEndOf="@id/seat"
+        app:layout_constraintTop_toTopOf="@+id/seat" />
 
     <TextView
-        android:id="@+id/price1"
+        android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat_semi_bold"
         android:text="@string/seat_price"
         android:textColor="@color/white"
         android:textSize="11sp"
-        app:layout_constraintBottom_toBottomOf="@+id/seat1"
+        app:layout_constraintBottom_toBottomOf="@+id/seat"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/seat1" />
+        app:layout_constraintTop_toTopOf="@+id/seat" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,7 +17,7 @@ class ChooseSeatActivity : AppCompatActivity() {
 
     private lateinit var dataList: ArrayList<Checkout>
 
-    //    private lateinit var seats: MutableList<Boolean>
+//    private lateinit var seats: MutableList<Boolean>
 //    private lateinit var checkout: MutableList<Checkout>
 //    private lateinit var seatList: MutableMap<Int, String>
     private lateinit var mFilmDatabase: DatabaseReference

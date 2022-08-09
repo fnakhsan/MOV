@@ -2,6 +2,7 @@ package com.fnakhsan.mov.checkout
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.fnakhsan.mov.data.Checkout
 import com.fnakhsan.mov.databinding.ActivityCheckoutBinding
 import com.fnakhsan.mov.utils.Preferences
@@ -20,8 +21,15 @@ class CheckoutActivity : AppCompatActivity() {
         preferences = Preferences(this)
         dataList = intent.getParcelableArrayListExtra<Checkout>("data") as ArrayList<Checkout>
 
-        for (i in dataList.indices){
+        for (i in dataList.indices) {
+            total += dataList[i].price?.toInt() ?: 0
+        }
 
+        dataList.add(Checkout("A1", "2", total))
+        checkoutBinding.rvItems.apply {
+            layoutManager =
+                LinearLayoutManager(this@CheckoutActivity, LinearLayoutManager.VERTICAL, false)
+            adapter = CheckoutAdapter(dataList)
         }
     }
 }
