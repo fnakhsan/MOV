@@ -31,7 +31,7 @@ class PlayerAdapter(private val playerList: ArrayList<Play>) :
 
     override fun getItemCount(): Int = playerList.size
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val ivPlayer: ImageView = view.findViewById(R.id.circleImageView)
         val tvPlayer: TextView = view.findViewById(R.id.player_name)
     }

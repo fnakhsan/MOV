@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -16,7 +17,7 @@ import com.google.firebase.database.*
 
 class MovieDetailActivity : AppCompatActivity() {
     private lateinit var movieDetailBinding: ActivityMovieDetailBinding
-    private lateinit var players: ArrayList<Play>
+    private var players = ArrayList<Play>()
     private lateinit var mPlaysRef: DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,20 +25,28 @@ class MovieDetailActivity : AppCompatActivity() {
         setContentView(movieDetailBinding.root)
 
         val data = intent.getParcelableExtra<Film>("film")
+        Log.d(TAG, "$data")
         mPlaysRef =
             FirebaseDatabase.getInstance("https://bwa-mov-fbe4b-default-rtdb.asia-southeast1.firebasedatabase.app/")
                 .getReference("Film").child(data?.judul.toString()).child("play")
+        Log.d(TAG, "first")
 
         movieDetailBinding.apply {
+            Log.d(TAG, "title: ${data?.judul}")
             tvTitle.text = data?.judul
+            Log.d(TAG, "genre: ${data?.genre}")
             tvGenre.text = data?.genre
+            Log.d(TAG, "rate: ${data?.rating}")
             tvRate.text = data?.rating
+            Log.d(TAG, "url poster: ${data?.poster}")
             Glide.with(this@MovieDetailActivity)
                 .load(data?.poster)
                 .apply(RequestOptions.centerCropTransform())
                 .into(ivCover)
-            rvWp.layoutManager =
-                LinearLayoutManager(this@MovieDetailActivity, LinearLayoutManager.HORIZONTAL, false)
+            val wpLayoutManager = LinearLayoutManager(this@MovieDetailActivity, LinearLayoutManager.HORIZONTAL, false)
+            rvWp.layoutManager = wpLayoutManager
+            rvWp.addItemDecoration(DividerItemDecoration(this@MovieDetailActivity, wpLayoutManager.orientation))
+            Log.d(TAG, "second")
             btnSeat.setOnClickListener {
                 val intent = Intent(
                     this@MovieDetailActivity,
@@ -46,6 +55,7 @@ class MovieDetailActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
+        Log.d(TAG, "third")
 
         getData()
     }
