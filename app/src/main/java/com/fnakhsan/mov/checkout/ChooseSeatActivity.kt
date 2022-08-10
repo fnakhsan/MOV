@@ -3,6 +3,7 @@ package com.fnakhsan.mov.checkout
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.fnakhsan.mov.R
 import com.fnakhsan.mov.data.Checkout
@@ -15,7 +16,7 @@ class ChooseSeatActivity : AppCompatActivity() {
     private var statusA1: Boolean = false
     private var total: Int = 0
 
-    private lateinit var dataList: ArrayList<Checkout>
+    private var dataList = ArrayList<Checkout>()
 
 //    private lateinit var seats: MutableList<Boolean>
 //    private lateinit var checkout: MutableList<Checkout>
@@ -35,14 +36,18 @@ class ChooseSeatActivity : AppCompatActivity() {
 
         chooseSeatBinding.A1.apply {
             setOnClickListener {
+                Log.d(TAG, "$statusA1")
                 if (statusA1) {
                     background = getDrawable(R.drawable.shape_rect_empty)
                     statusA1 = false
+                    Log.d(TAG, "second: $statusA1")
                     total -= 1
                     totalBuy(total)
                 } else {
                     background = getDrawable(R.drawable.shape_rect_selected)
+                    Log.d(TAG, "third: $statusA1")
                     statusA1 = true
+                    Log.d(TAG, "fourth: $statusA1")
                     total += 1
                     totalBuy(total)
 
@@ -50,13 +55,6 @@ class ChooseSeatActivity : AppCompatActivity() {
                     dataList.add(a1)
                 }
             }
-        }
-        with(chooseSeatBinding) {
-
-        }
-
-        chooseSeatBinding.let {
-
         }
 
         chooseSeatBinding.btnBuy.setOnClickListener {
