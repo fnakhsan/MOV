@@ -1,6 +1,7 @@
 package com.fnakhsan.mov.checkout
 
 import android.icu.text.NumberFormat
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,10 +32,14 @@ class CheckoutAdapter(private val checkoutList: MutableList<Checkout>) :
         holder.apply {
             ivSeat.setImageResource(R.drawable.ic_baseline_event_seat_24)
             tvSeat.text = checkoutListPosition.seat
+            Log.d(TAG, (checkoutListPosition.price ?: 0).toString())
             tvPrice.text = format.format(checkoutListPosition.price?.toDouble() ?: 0)
         }
     }
 
     override fun getItemCount(): Int = checkoutList.size
 
+    companion object {
+        private const val TAG = "coAdapter"
+    }
 }

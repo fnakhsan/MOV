@@ -51,8 +51,12 @@ class ChooseSeatActivity : AppCompatActivity() {
                     total += 1
                     totalBuy(total)
 
-                    val a1 = Checkout("A1", "40000")
+                    val a1 = Checkout("A1", "1", 40000)
+                    Log.d(TAG, "fifth: $dataList")
+                    dataList.clear()
+                    Log.d(TAG, "sixth: $dataList")
                     dataList.add(a1)
+                    Log.d(TAG, "seventh: $dataList")
                 }
             }
         }
@@ -206,6 +210,6 @@ class ChooseSeatActivity : AppCompatActivity() {
 //    }
 
     companion object {
-        private const val TAG = "checkout"
+        private const val TAG = "seat"
     }
 }
