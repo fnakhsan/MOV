@@ -1,5 +1,6 @@
 package com.fnakhsan.mov.checkout
 
+import android.content.Intent
 import android.icu.text.NumberFormat
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -44,6 +45,13 @@ class CheckoutActivity : AppCompatActivity() {
         }
         checkoutBinding.apply {
             tvTotalPrice.text = format.format(total.toDouble())
+            btnCancel.setOnClickListener{
+                val intent = Intent(this@CheckoutActivity, ChooseSeatActivity::class.java)
+                startActivity(intent)
+            }
+            btnBuyNow.setOnClickListener {
+
+            }
         }
     }
 
