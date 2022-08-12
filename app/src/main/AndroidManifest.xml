@@ -37,7 +37,7 @@
         android:theme="@style/NoActionBar"
         tools:targetApi="31">
         <activity
-            android:name=".CheckoutSuccessActivity"
+            android:name=".checkout.CheckoutSuccessActivity"
             android:exported="false" />
         <activity
             android:name=".dashboard.DashboardActivity"
