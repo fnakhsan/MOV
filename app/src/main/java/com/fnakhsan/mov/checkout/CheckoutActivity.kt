@@ -2,6 +2,7 @@ package com.fnakhsan.mov.checkout
 
 import android.content.Intent
 import android.icu.text.NumberFormat
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -33,8 +34,11 @@ class CheckoutActivity : AppCompatActivity() {
         }
 
         val localID = Locale("in", "ID")
-        val format = NumberFormat.getCurrencyInstance(localID)
-
+        val format = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            NumberFormat.getCurrencyInstance(localID)
+        } else {
+            java.text.NumberFormat.getCurrencyInstance(localID)
+        }
 
 //        dataList.add(Checkout("A1", "2", total))
 

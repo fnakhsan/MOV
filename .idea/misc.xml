@@ -24,6 +24,7 @@
         <entry key="..\:/Dev/MOV/app/src/main/res/drawable/splash_background.xml" value="0.1505" />
         <entry key="..\:/Dev/MOV/app/src/main/res/font/montserrat.xml" value="0.2564814814814815" />
         <entry key="..\:/Dev/MOV/app/src/main/res/layout/activity_checkout.xml" value="0.6" />
+        <entry key="..\:/Dev/MOV/app/src/main/res/layout/activity_checkout_success.xml" value="0.264" />
         <entry key="..\:/Dev/MOV/app/src/main/res/layout/activity_choose_seat.xml" value="0.6" />
         <entry key="..\:/Dev/MOV/app/src/main/res/layout/activity_dashboard.xml" value="0.176" />
         <entry key="..\:/Dev/MOV/app/src/main/res/layout/activity_edit_profile.xml" value="0.264" />

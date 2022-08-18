@@ -2,6 +2,7 @@ package com.fnakhsan.mov.dashboard.home
 
 import android.content.Intent
 import android.icu.text.NumberFormat
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -39,7 +40,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        preferences = Preferences(activity!!.applicationContext)
+        preferences = Preferences(requireActivity().applicationContext)
         mDatabaseRef =
             FirebaseDatabase.getInstance("https://bwa-mov-fbe4b-default-rtdb.asia-southeast1.firebasedatabase.app/")
                 .getReference("Film")
@@ -90,7 +91,11 @@ class HomeFragment : Fragment() {
 
     private fun currency(balance: Double, tvBalance: TextView) {
         val localID = Locale("in", "ID")
-        val format = NumberFormat.getCurrencyInstance(localID)
+        val format = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            NumberFormat.getCurrencyInstance(localID)
+        } else {
+            java.text.NumberFormat.getCurrencyInstance(localID)
+        }
         tvBalance.text = format.format(balance)
     }
 
