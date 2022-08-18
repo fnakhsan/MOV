@@ -1,6 +1,7 @@
 package com.fnakhsan.mov.checkout
 
 import android.icu.text.NumberFormat
+import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -28,7 +29,11 @@ class CheckoutAdapter(private val checkoutList: MutableList<Checkout>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val checkoutListPosition = checkoutList[position]
         val localID = Locale("in", "ID")
-        val format = NumberFormat.getCurrencyInstance(localID)
+        val format = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            NumberFormat.getCurrencyInstance(localID)
+        } else {
+            java.text.NumberFormat.getCurrencyInstance(localID)
+        }
         holder.apply {
             ivSeat.setImageResource(R.drawable.ic_baseline_event_seat_24)
             tvSeat.text = checkoutListPosition.seat

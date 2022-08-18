@@ -35,7 +35,7 @@
     <string name="whos_played">Who\'s Played</string>
     <string name="pilih_bangku">Pilih Bangku</string>
     <string name="movie_cover">movie cover</string>
-    <string name="buy_ticket">beli tiket (2)</string>
+    <string name="buy_ticket">beli tiket (%1$d)</string>
     <string name="layar_bioskop">Layar Bioskop</string>
     <string name="row1">A</string>
     <string name="row2">B</string>

@@ -6,10 +6,14 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fnakhsan.mov.data.Checkout
+import com.fnakhsan.mov.data.User
 import com.fnakhsan.mov.databinding.ActivityCheckoutBinding
 import com.fnakhsan.mov.utils.Preferences
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -49,12 +53,24 @@ class CheckoutActivity : AppCompatActivity() {
         }
         checkoutBinding.apply {
             tvTotalPrice.text = format.format(total.toDouble())
-            btnCancel.setOnClickListener{
+            btnCancel.setOnClickListener {
                 val intent = Intent(this@CheckoutActivity, ChooseSeatActivity::class.java)
                 startActivity(intent)
             }
-            btnBuyNow.setOnClickListener {
-
+            val balance = preferences.getValues("saldo")?.toInt() ?: 0
+            when (balance >= total) {
+                true -> {
+                    btnBuyNow.apply {
+                        visibility = View.VISIBLE
+                        setOnClickListener {
+                            val intent = Intent(this@CheckoutActivity, CheckoutSuccessActivity::class.java)
+                            startActivity(intent)
+                        }
+                    }
+                }
+                false -> {
+                    btnBuyNow.visibility = View.INVISIBLE
+                }
             }
         }
     }

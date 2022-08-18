@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.content.res.AppCompatResources
 import com.fnakhsan.mov.R
 import com.fnakhsan.mov.data.Checkout
 import com.fnakhsan.mov.data.Film
@@ -18,7 +19,7 @@ class ChooseSeatActivity : AppCompatActivity() {
 
     private var dataList = ArrayList<Checkout>()
 
-//    private lateinit var seats: MutableList<Boolean>
+    //    private lateinit var seats: MutableList<Boolean>
 //    private lateinit var checkout: MutableList<Checkout>
 //    private lateinit var seatList: MutableMap<Int, String>
     private lateinit var mFilmDatabase: DatabaseReference
@@ -38,13 +39,19 @@ class ChooseSeatActivity : AppCompatActivity() {
             setOnClickListener {
                 Log.d(TAG, "$statusA1")
                 if (statusA1) {
-                    background = getDrawable(R.drawable.shape_rect_empty)
+                    background = AppCompatResources.getDrawable(
+                        this@ChooseSeatActivity,
+                        R.drawable.shape_rect_empty
+                    )
                     statusA1 = false
                     Log.d(TAG, "second: $statusA1")
                     total -= 1
                     totalBuy(total)
                 } else {
-                    background = getDrawable(R.drawable.shape_rect_selected)
+                    background = AppCompatResources.getDrawable(
+                        this@ChooseSeatActivity,
+                        R.drawable.shape_rect_selected
+                    )
                     Log.d(TAG, "third: $statusA1")
                     statusA1 = true
                     Log.d(TAG, "fourth: $statusA1")
@@ -134,10 +141,10 @@ class ChooseSeatActivity : AppCompatActivity() {
     private fun totalBuy(total: Int) {
         chooseSeatBinding.btnBuy.apply {
             if (total == 0) {
-                text = "Buy Ticket"
+                text = getString(R.string.buy_ticket, total)
                 visibility = View.INVISIBLE
             } else {
-                text = "Buy Ticket ($total)"
+                text = getString(R.string.buy_ticket, total)
                 visibility = View.VISIBLE
             }
         }
