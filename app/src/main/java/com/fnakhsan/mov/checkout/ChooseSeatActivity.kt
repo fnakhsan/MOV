@@ -19,7 +19,7 @@ class ChooseSeatActivity : AppCompatActivity() {
 
     private var dataList = ArrayList<Checkout>()
 
-    //    private lateinit var seats: MutableList<Boolean>
+//    private lateinit var seats: MutableList<Boolean>
 //    private lateinit var checkout: MutableList<Checkout>
 //    private lateinit var seatList: MutableMap<Int, String>
     private lateinit var mFilmDatabase: DatabaseReference
@@ -29,7 +29,7 @@ class ChooseSeatActivity : AppCompatActivity() {
         chooseSeatBinding = ActivityChooseSeatBinding.inflate(layoutInflater)
         setContentView(chooseSeatBinding.root)
 
-//        seatInit()
+//      seatInit()
         val data = intent.getParcelableExtra<Film>("data")
         mFilmDatabase =
             FirebaseDatabase.getInstance("https://bwa-mov-fbe4b-default-rtdb.asia-southeast1.firebasedatabase.app/")

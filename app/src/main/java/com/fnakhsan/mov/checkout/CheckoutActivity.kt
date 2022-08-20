@@ -28,36 +28,44 @@ class CheckoutActivity : AppCompatActivity() {
         checkoutBinding = ActivityCheckoutBinding.inflate(layoutInflater)
         setContentView(checkoutBinding.root)
 
+        Log.d(TAG, "first")
+
         preferences = Preferences(this)
         dataList = intent.getParcelableArrayListExtra<Checkout>("data") as ArrayList<Checkout>
 
+        Log.d(TAG, dataList.toString())
         for (i in dataList.indices) {
             Log.d(TAG, "$dataList")
             Log.d(TAG, "${dataList[i].price ?: 0}")
             total += dataList[i].price ?: 0
         }
 
-        val localID = Locale("in", "ID")
-        val format = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            NumberFormat.getCurrencyInstance(localID)
-        } else {
-            java.text.NumberFormat.getCurrencyInstance(localID)
-        }
-
 //        dataList.add(Checkout("A1", "2", total))
-
         checkoutBinding.rvItems.apply {
             layoutManager =
                 LinearLayoutManager(this@CheckoutActivity, LinearLayoutManager.VERTICAL, false)
             adapter = CheckoutAdapter(dataList)
         }
         checkoutBinding.apply {
-            tvTotalPrice.text = format.format(total.toDouble())
+            val localID = Locale("in", "ID")
+//            val format = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                NumberFormat.getCurrencyInstance(localID)
+//            } else {
+//                java.text.NumberFormat.getCurrencyInstance(localID)
+//            }
+            Log.d(TAG, "format init")
+            val format = java.text.NumberFormat.getCurrencyInstance(localID).format(total)
+            Log.d(TAG, format.toString())
+            tvTotalPrice.text = format.toString()
+            Log.d(TAG, "success")
             btnCancel.setOnClickListener {
                 val intent = Intent(this@CheckoutActivity, ChooseSeatActivity::class.java)
                 startActivity(intent)
             }
+            Log.d(TAG, "balance init")
+            Log.d(TAG, "${preferences.getValues("saldo")}")
             val balance = preferences.getValues("saldo")?.toInt() ?: 0
+            Log.d(TAG, "$balance")
             when (balance >= total) {
                 true -> {
                     btnBuyNow.apply {
