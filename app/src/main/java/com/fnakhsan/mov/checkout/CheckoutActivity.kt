@@ -18,10 +18,12 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class CheckoutActivity : AppCompatActivity() {
+    private lateinit var mDatabaseUserRef: DatabaseReference
     private lateinit var checkoutBinding: ActivityCheckoutBinding
     private lateinit var dataList: MutableList<Checkout>
     private var total: Int = 0
     private lateinit var preferences: Preferences
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +34,10 @@ class CheckoutActivity : AppCompatActivity() {
 
         preferences = Preferences(this)
         dataList = intent.getParcelableArrayListExtra<Checkout>("data") as ArrayList<Checkout>
+        mDatabaseUserRef =
+            FirebaseDatabase
+                .getInstance("https://bwa-mov-fbe4b-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                .getReference("User").child("${preferences.getValues("username")}")
 
         Log.d(TAG, dataList.toString())
         for (i in dataList.indices) {
@@ -68,6 +74,9 @@ class CheckoutActivity : AppCompatActivity() {
             Log.d(TAG, "$balance")
             when (balance >= total) {
                 true -> {
+                    val recentBalance = (balance - total).toString()
+                    mDatabaseUserRef.child("saldo").setValue(recentBalance)
+                    preferences.setValues("saldo", recentBalance)
                     btnBuyNow.apply {
                         visibility = View.VISIBLE
                         setOnClickListener {

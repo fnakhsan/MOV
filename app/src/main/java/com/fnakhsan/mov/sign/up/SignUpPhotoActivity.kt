@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -48,7 +49,8 @@ class SignUpPhotoActivity : AppCompatActivity(), PermissionListener {
                 .apply(RequestOptions.circleCropTransform())
                 .into(signUpPhotoBinding.photoProfile)
             signUpPhotoBinding.btnSaveUpload.visibility = View.VISIBLE
-            signUpPhotoBinding.btnUpload.background = getDrawable(R.drawable.ic_btn_delete)
+            signUpPhotoBinding.btnUpload.background =
+                AppCompatResources.getDrawable(this, R.drawable.ic_btn_delete)
         }
     private lateinit var signUpPhotoBinding: ActivitySignUpPhotoBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,7 +75,10 @@ class SignUpPhotoActivity : AppCompatActivity(), PermissionListener {
                     statusAdd = false
                     with(signUpPhotoBinding) {
                         btnSaveUpload.visibility = View.VISIBLE
-                        btnUpload.background = getDrawable(R.drawable.ic_btn_upload)
+                        btnUpload.background = AppCompatResources.getDrawable(
+                            this@SignUpPhotoActivity,
+                            R.drawable.ic_btn_upload
+                        )
                         photoProfile.setImageResource(R.drawable.user_pic)
                     }
                 } else {

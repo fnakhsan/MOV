@@ -75,6 +75,7 @@ class SignUpActivity : AppCompatActivity() {
         user.password = iPassword
         user.nama = iFullname
         user.email = iEmail
+        user.saldo = "280000"
 
         checkingUsername(iUsername, iEmail, user, listUser)
     }
@@ -106,7 +107,7 @@ class SignUpActivity : AppCompatActivity() {
                             this@SignUpActivity,
                             SignUpPhotoActivity::class.java
                         ).putExtra("username", dataUser.username)
-                        with(preferences){
+                        preferences.apply {
                             Log.d(TAG, "access pref..")
                             setValues("email", dataUser.password.toString())
                             Log.d(TAG, dataUser.password.toString())
@@ -116,6 +117,8 @@ class SignUpActivity : AppCompatActivity() {
                             Log.d(TAG, dataUser.username.toString())
                             setValues("email", dataUser.email.toString())
                             Log.d(TAG, dataUser.email.toString())
+                            setValues("saldo", dataUser.saldo.toString())
+                            Log.d(TAG, dataUser.saldo.toString())
                         }
                         startActivity(intent)
                     } else {
